@@ -2,4 +2,4 @@
 
 That's it, my dotfiles. Nothing fancy.
 
-![big brain](./Imágenes/conciousness.png)
+![big brain](./conciousness.png)
