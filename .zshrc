@@ -73,7 +73,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=( npm git colored-man-pages jump)
+plugins=( npm git colored-man-pages jump gradle)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -85,16 +85,16 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/carlos-II/.sdkman"
+[[ -s "/home/carlos-II/.sdkman/bin/sdkman-init.sh" ]] && source "/home/carlos-II/.sdkman/bin/sdkman-init.sh"
 
 export TERM=xterm-256color
 
@@ -113,6 +113,7 @@ AUTO_CD="false"
 
 alias ll="lsd -a1"
 alias l="lsd -1"
+alias x="xdg-open"
 alias c="clear"
 alias vim="nvim"
 alias ssp="systemctl suspend"
