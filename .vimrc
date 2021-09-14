@@ -1,7 +1,7 @@
 " File              : .vimrc
 " Author            : Carlos Carral <carloscarral13@gmail.com>
 " Date              : 10.08.2020
-" Last Modified Date: 20/04/2021
+" Last Modified Date: 14/09/2021
 "------------- ------------
 "       Custom vim
 "------------- ------------
@@ -61,7 +61,7 @@ set path+=**
 set wildmenu
 
 let g:termdebug_wide = 1
-let g:markdown_fenced_languages=["rust"]
+let g:markdown_fenced_languages=["rust","bash", "sql","man"]
 
 
 "   Mapping kj -> ESC 
@@ -117,6 +117,7 @@ filetype off
 call plug#begin('~/.vim/plugged')
 Plug 'jiangmiao/auto-pairs'
 Plug 'andymass/vim-matchup'
+Plug 'preservim/tagbar'
 Plug 'Dimercel/todo-vim', {'on': 'TODOToggle'}
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -130,18 +131,14 @@ Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-eunuch'
 Plug 'kkoomen/vim-doge', {'do':{->doge#install()}}
 
-" Telescope y otros para nvim 0.5
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+Plug 'alpertuna/vim-header'
 
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'hoob3rt/lualine.nvim'
 
 
-Plug 'neovim/nvim-lspconfig'
+" Plug 'neovim/nvim-lspconfig'
 " packer
 
 Plug 'mattn/emmet-vim', {'for':['html', 'html.handlebars', 'vue','php']}
@@ -153,16 +150,16 @@ Plug 'rust-lang/rust.vim', {'for':['rust']}
 
 " Colorschemes
 " Plug 'tomasr/molokai'
-" Plug 'folke/tokyonight.nvim' ,{'branch':'main'}
+Plug 'folke/tokyonight.nvim' ,{'branch':'main'}
 " Plug 'romgrk/doom-one.vim'
 " Plug 'chuling/vim-equinusocio-material'
 " Plug 'vmchale/ion-vim' , {'for':['javascript']}
 " Plug 'cormacrelf/vim-colors-github'
 " Plug 'arthurealike/vim-J'
 " Plug 'mhartington/oceanic-next'
-" Plug 'ackyshake/Spacegray.vim'
-" Plug 'git@gitlab.com:yorickpeterse/happy_hacking.vim.git'
-Plug 'tomasiser/vim-code-dark'
+Plug 'ackyshake/Spacegray.vim', {'branch':'main'}
+Plug 'ccarral/vim-code-dark'
+Plug 'joshdick/onedark.vim', {'branch':'main'}
 
 " JS
 Plug 'pangloss/vim-javascript', {'for': ['javascript']}
@@ -200,6 +197,7 @@ set shortmess+=c
 imap <C-l> <Plug>(coc-snippets-expand)
 
 nmap <F9> <Plug>(coc-rename)
+nmap <F10> :CocAction<CR>
 
 " GoTo code navigations.
 nmap <silent> gd <Plug>(coc-definition)
@@ -243,6 +241,9 @@ let g:header_field_timestamp_format = '%d/%m/%Y'
 let g:header_auto_add_header = 0
 " ================================================
 
+" ================ git-gutter ====================
+" ================================================
+
 "===================== vimtex =================================
 let g:tex_flavor = 'latex'
 "==============================================================
@@ -260,11 +261,12 @@ hi Comment cterm=italic
 " set term=screen-256color
 
 "===================== colorschemes ========================
-let g:tokyonight_italic_functions = 1
-let g:tokyonight_style = "night"
-let g:spacegray_use_italics=1
-" colorscheme happy_hacking 
+" let g:tokyonight_italic_functions = 1
+" let g:tokyonight_style = "night"
+" colorscheme tokyonight
+let g:codedark_italics = 1
 colorscheme codedark 
+" colorscheme spacegray 
 
 hi CocErrorSign ctermfg=Red guifg=#ff4545
 hi CocWarningSign ctermfg=Yellow guifg=#ffc86b   

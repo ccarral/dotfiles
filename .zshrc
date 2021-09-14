@@ -73,7 +73,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=( npm git colored-man-pages jump gradle)
+plugins=(git colored-man-pages jump gradle cargo)
 
 source $ZSH/oh-my-zsh.sh
 
