@@ -1,7 +1,7 @@
 " File              : .vimrc
 " Author            : Carlos Carral <carloscarral13@gmail.com>
 " Date              : 10.08.2020
-" Last Modified Date: 14/09/2021
+" Last Modified Date: 29/09/2021
 "------------- ------------
 "       Custom vim
 "------------- ------------
@@ -28,9 +28,6 @@ set signcolumn=number
 set guicursor=
 tnoremap <Esc><Esc> <C-\><C-n>
 
-"===================== NvimTree ========================
-map <M-f> :NvimTreeToggle<CR>
-"===========================================================
 
 
 
@@ -99,8 +96,8 @@ nnoremap <Leader>f :find
 nnoremap <Leader>e :edit 
 
 "   Mapeos para cambiar de tabs  
-map <C-l> gt
-map <C-n> gT
+" map <C-l> gt
+" map <C-n> gT
 
 "   Mapeos para cambiar de buffer
 map <C-w> <C-w><C-w>
@@ -194,7 +191,22 @@ set nobackup
 set updatetime=300
 set shortmess+=c
 
-imap <C-l> <Plug>(coc-snippets-expand)
+
+" function! s:check_back_space() abort
+  " let col = col('.') - 1
+  " return !col || getline('.')[col - 1]  =~ '\s'
+" endfunction
+
+
+" Use <C-l> to trigger completion.
+inoremap <expr> <C-l> coc#refresh()
+imap <C-k> <Plug>(coc-snippets-expand)
+
+" if has('nvim')
+  " inoremap <silent><expr> <c-space> coc#refresh()
+" else
+  " inoremap <silent><expr> <c-@> coc#refresh()
+" endif
 
 nmap <F9> <Plug>(coc-rename)
 nmap <F10> :CocAction<CR>
@@ -229,6 +241,8 @@ function! s:show_documentation()
   endif
 endfunction
 
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 let g:coc_filetype_map = {'styl': 'css'}
 "==============================================================
@@ -273,51 +287,6 @@ hi CocWarningSign ctermfg=Yellow guifg=#ffc86b
 hi CocHintSign ctermfg=Red guifg=#ababab
 "===========================================================
 
-
-
-"   Devicons
-" let g:webdevicons_enable = 1
-" let g:webdevicons_enable_airline_tabline = 1
-" let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
-" let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
-
-"===================== airline ========================
-" let g:airline_theme = 'wombat'
-" let g:airline_theme = 'behelit'
-" let g:airline_theme = 'base16_adwaita'
-" let g:airline_theme = 'zenburn'
-" let g:airline_theme = 'nord'
-" let g:airline_theme = 'codedark'
-" let g:airline_powerline_fonts = 1
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#gutentags#enabled = 1
-" let g:airline#extensions#coc#enabled = 1
-" let g:airline#extensions#tagbar#enabled = 1
-" let g:airline_left_sep = ''
-" let g:airline_left_sep = ' '
-" let g:airline_left_sep = '||'
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_left_alt_sep = '|'
-
- " let g:airline_right_sep = ''
-" let g:airline_right_sep = ' '
-" let g:airline_right_sep = '||'
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = '' 
-" let g:airline_right_alt_sep = '' 
-" let g:airline_section_c = ''
-"let g:airline_section_x = ''
-" let g:airline_section_y = '%{strftime("%H:%M")}'
-" let g:airline_section_z = ''
-" let g:airline_section_warning = ''
-" let g:airline#extensions#tabline#fnamemod=':t'
-" let airline#extensions#ale#warning_symbol = ''
-
-"===========================================================
-
-""===================== statusline ========================
-
 ""===================== statusline ========================
 set noshowmode
 set laststatus=2
@@ -326,6 +295,11 @@ set laststatus=2
 ""===================== lualine ========================
 lua require('lualine').setup{ options = { theme = 'onedark' , section_separators = '', component_separators = '|'} }
 "==========================================================
+
+"===================== NvimTree ========================
+lua require 'nvim-tree'.setup{} 
+map <M-f> :NvimTreeToggle<CR>
+"===========================================================
 
 "===================== vim-test  ==========================
 let test#strategy = "neovim"
@@ -369,35 +343,6 @@ let g:NERDCompactSexyComs=1
 "===================== vim-todo ============================
 let g:todo_vertical=1
 let g:todo_right=1
-"===========================================================
-
-"===================== ale =================================
-" let g:ale_set_quickfix = 0
-" let g:ale_enabled = 1
-" let g:ale_fix_on_save = 1
-" let g:ale_fixers = {'java':['google_java_format'],'php':['php_cs_fixer', 'prettier'],'rust':['rustfmt'],'c':['clang-format'],'javascript':['prettier'], 'vue': ['prettier'],'html':['prettier'],'json': ['fixjson'], 'sh':['shfmt'], 'python':['black']}
-" let g:ale_rust_cargo_check_all_targets = 1
-
-" let g:ale_linters = { 'javascript':['eslint'] ,'vue': ['eslint']}
-" let g:ale_sign_error = '=>'
-
-
-" let g:ale_sign_warning = ' '
-" let g:ale_lint_on_text_changed = 'always'
-"===========================================================
-
-"===================== vim-codefmt =========================
-" call glaive#Install()
-" augroup autoformat_settings
-  " autocmd FileType c,cpp,proto,javascript,arduino AutoFormatBuffer clang-format
-  " autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
-  " autocmd FileType java AutoFormatBuffer google-java-format
-  " autocmd FileType python AutoFormatBuffer autopep8
-  " autocmd FileType rust AutoFormatBuffer rustfmt
-  " autocmd FileType vue AutoFormatBuffer prettier
-" augroup END
-
-" Glaive codefmt google_java_executable="java -jar /home/carlos-II/bin/google-java-format-1.10.0-all-deps.jar"
 "===========================================================
 
 "================== recognize header files as C ============
