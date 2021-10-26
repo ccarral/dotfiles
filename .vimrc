@@ -212,7 +212,7 @@ nmap <F9> <Plug>(coc-rename)
 nmap <F10> :CocAction<CR>
 
 " GoTo code navigations.
-nmap <silent> gd <Plug>(coc-definition)
+autocmd User CocNvimInit nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -293,7 +293,7 @@ set laststatus=2
 "==========================================================
 
 ""===================== lualine ========================
-lua require('lualine').setup{ options = { theme = 'onedark' , section_separators = '', component_separators = '|'} }
+lua require('lualine').setup{ options = { theme = 'onedark' , section_separators = '', component_separators = '|', extensions='nvim-tree'} }
 "==========================================================
 
 "===================== NvimTree ========================
