@@ -1,48 +1,14 @@
-local nvim_lsp = require('lspconfig')
+-- local nvim_lsp = require('lspconfig')
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")
+
+local common = require("lsp_common")
 
 
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+local on_attach = common.on_attach
 
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<leader>ac', '<cmd>CodeActionMenu<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
-
-  local signs = { Error = " ", Warning = " ", Hint = "", Information = " " }
-
-  for type, icon in pairs(signs) do
-     local hl = "LspDiagnosticsSign" .. type
-     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-  end
-
-    vim.g.code_action_menu_show_details = false
-    vim.g.code_action_menu_show_diff = false
-
-end
-
-local global_opts ={
+local global_opts = {
         -- on_attach is a callback called when the language server attachs to the buffer
         on_attach = on_attach,
         settings = {
@@ -73,27 +39,39 @@ local rust_opts = {
     server = global_opts,
 }
 
-require('rust-tools').setup(rust_opts)
 
 local lsp_installer = require("nvim-lsp-installer")
+
+local lsp_installer_server = require("nvim-lsp-installer.server")
+
 
 lsp_installer.on_server_ready(function(server)
     -- local opts = {}
 
     -- (optional) Customize the options passed to the server
-    -- if server.name == "tsserver" then
-    --     opts.root_dir = function() ... end
-    -- end
+    if server.name == "rust_analyzer" then
+        local server_options = server:get_default_options()
+        server_options['on_attach'] = on_attach
+        rust_opts.server = server_options 
+        require('rust-tools').setup(rust_opts)
+        return 
+        -- vim.cmd [[ do User LspAttachBuffers ]]
+   else
+       server:setup(global_opts)
+   end
 
     -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
-   server:setup(global_opts)
+   -- server:setup(global_opts)
    vim.cmd [[ do User LspAttachBuffers ]]
 end)
  
 
 --Setup Completion
 --See https://github.com/hrsh7th/nvim-cmp#basic-configuration
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 local cmp = require('cmp')
+cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
+
 cmp.setup({
   -- Enable LSP snippets
   snippet = {
