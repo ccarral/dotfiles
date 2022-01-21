@@ -2,10 +2,20 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 export PATH="/home/carlos-II/bin/MATLAB/R2017a/bin:$PATH"
-# export PATH="/opt/forticlient:$PATH"
+export PATH="/home/carlos-II/.npm/bin/:$PATH"
+export PATH="/opt/oracle/instantclient_19_3:$PATH"
+export PATH="/opt/gcc-arm/bin:$PATH"
+export PATH="/home/.local/nvim/:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/carlos-II/.oh-my-zsh"
+
+
+export FLYCTL_INSTALL="/home/carlos-II/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
+
+# Para las chingaderas de oracle
+# export LD_LIBRARY_PATH=/opt/oracle/instantclient_19_3:$LD_LIBRARY_PATH
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -73,7 +83,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colored-man-pages jump gradle cargo)
+plugins=(git jump rust docker)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -91,10 +101,6 @@ else
   export EDITOR='nvim'
 fi
 
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/carlos-II/.sdkman"
-[[ -s "/home/carlos-II/.sdkman/bin/sdkman-init.sh" ]] && source "/home/carlos-II/.sdkman/bin/sdkman-init.sh"
 
 export TERM=xterm-256color
 
@@ -129,3 +135,7 @@ alias cc="cargo check"
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# export SDKMAN_DIR="/home/carlos-II/.sdkman"
+[[ -s "/home/carlos-II/.sdkman/bin/sdkman-init.sh" ]] && source "/home/carlos-II/.sdkman/bin/sdkman-init.sh"

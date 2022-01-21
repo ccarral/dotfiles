@@ -26,15 +26,21 @@ M.on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
 
-  local signs = { Error = " ", Warning = " ", Hint = "", Information = " " }
+  local signs = { Error = " ", Warning = " ", Hint = "💡", Information = " " }
 
   for type, icon in pairs(signs) do
-     local hl = "LspDiagnosticsSign" .. type
-     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+     local hl = "DiagnosticSign" .. type
+     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
   end
 
-    vim.g.code_action_menu_show_details = false
-    vim.g.code_action_menu_show_diff = false
+  vim.diagnostic.config({
+      virtual_text = {
+          prefix = '●', -- Could be '●', '▎', 'x'
+      }
+  })
+
+  vim.g.code_action_menu_show_details = false
+  vim.g.code_action_menu_show_diff = false
 
 end
 

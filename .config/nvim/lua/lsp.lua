@@ -16,7 +16,20 @@ local global_opts = {
             -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
             ["rust-analyzer"] = {
                 -- enable clippy on save
-                command = "clippy"
+                command = "clippy",
+                assist = {
+                    importGranularity = "module",
+                    importPrefix = "by_self",
+                },
+                cargo = {
+                    loadOutDirsFromCheck = true
+                },
+                procMacro = {
+                    enable = false
+                },
+                diagnostics = {
+                    disabled = {"macro-error", "unresolved-proc-macro"}
+                },
             }
         }
 } 

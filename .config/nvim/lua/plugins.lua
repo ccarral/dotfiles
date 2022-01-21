@@ -1,6 +1,7 @@
 return require('packer').startup(function()
   -- Packer can manage itself
     use 'wbthomason/packer.nvim'
+    use { "rcarriga/vim-ultest", requires = {"vim-test/vim-test"}, run = ":UpdateRemotePlugins" }
     use {
       'nvim-lualine/lualine.nvim',
       requires = {'kyazdani42/nvim-web-devicons', opt = false},
@@ -8,10 +9,12 @@ return require('packer').startup(function()
       config = function()
           local lualine = require('lualine').setup{ 
               options = { 
+                  -- theme = 'spaceduck' , 
                   -- theme = 'enfocado' , 
                   -- theme = 'onedark' , 
-                  -- theme = 'nightfly' , 
-                  theme = 'rose-pine' , 
+                  theme = 'catppuccin' , 
+                  -- theme = 'codedark', 
+                  -- theme = 'rose-pine' , 
                   section_separators = '', 
                   component_separators = '|', 
                   extensions='nvim-tree', 
@@ -21,6 +24,11 @@ return require('packer').startup(function()
 
       end,
     }
+    use({
+        "catppuccin/nvim",
+        as = "catppuccin"
+    })
+    use 'pineapplegiant/spaceduck'
     use{  
         'windwp/nvim-autopairs',
         config = function()
@@ -48,6 +56,7 @@ return require('packer').startup(function()
             vim.g.enfocado_style = 'neon'
             -- Load colorscheme after options
             -- vim.cmd('autocmd VimEnter * ++nested colorscheme enfocado')
+            -- vim.cmd('colorscheme enfocado')
         end
     }
     use 'andymass/vim-matchup'
@@ -66,11 +75,13 @@ return require('packer').startup(function()
     --Plug 'kkoomen/vim-doge', {'do':{->doge#install()}}
 
     use {
-	'kyazdani42/nvim-tree.lua',
-	config = function()
-		require 'nvim-tree'.setup{}
-	end
-}
+        'kyazdani42/nvim-tree.lua',
+        config = function()
+            require 'nvim-tree'.setup{
+                git={enable = false}
+            }
+        end
+    }
     use 'neovim/nvim-lspconfig'
     use 'weilbith/nvim-code-action-menu'
     use 'williamboman/nvim-lsp-installer'
@@ -100,7 +111,7 @@ return require('packer').startup(function()
             vim.g.rose_pine_variant = 'moon'
 
             -- Load colorscheme after options
-            vim.cmd('colorscheme rose-pine')
+            -- vim.cmd('colorscheme rose-pine')
         end
     }
     --use 'vmchale/ion-vim' , {'for':['javascript']}
@@ -113,4 +124,4 @@ return require('packer').startup(function()
     --use 'gavocanov/vim-js-indent', {'for':['javascript']}
     use 'scrooloose/nerdcommenter'
     use 'mileszs/ack.vim'
-end)
+    end)

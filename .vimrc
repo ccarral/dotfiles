@@ -1,16 +1,22 @@
 " File              : .vimrc
 " Author            : Carlos Carral <carloscarral13@gmail.com>
 " Date              : 10.08.2020
-" Last Modified Date: 29/09/2021
+" Last Modified Date: 19/08/2020
 "------------- ------------
-"       Custom vim
+"       Custm vim
 "------------- ------------
-
 set conceallevel=3
+
+"   Line Nr
+set relativenumber
+set number
+set cursorline
+
+" Persistent undo
+set undofile
 
 filetype plugin indent on
 
-"   Encoding
 set encoding=UTF-8
 set fillchars=vert:│
 
@@ -22,28 +28,12 @@ set expandtab
 set scrolloff=3
 set ruler
 set nrformats-=octal
+set textwidth=74
 
-"======================== vim/nvim ============================
 set signcolumn=number
 set guicursor=
+
 tnoremap <Esc><Esc> <C-\><C-n>
-
-
-
-
-set backspace=indent,eol,start
-set incsearch
-set autoindent
-
-
-"   Line Nr
-set relativenumber
-set number
-set cursorline
-
-"   Text width
-" set textwidth=74
-
 "   Leader
 let mapleader = ","
 
@@ -107,145 +97,46 @@ map <C-w> <C-w><C-w>
 set autoread
 set autowrite
 
-"   Para vundle
-filetype off
 
-"===================== Plugins ========================
-call plug#begin('~/.vim/plugged')
-Plug 'jiangmiao/auto-pairs'
-Plug 'andymass/vim-matchup'
-Plug 'preservim/tagbar'
-Plug 'Dimercel/todo-vim', {'on': 'TODOToggle'}
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-obsession'
-Plug 'mhinz/vim-startify'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-repeat'
-Plug 'justinmk/vim-sneak'
-Plug 'tpope/vim-eunuch'
-Plug 'kkoomen/vim-doge', {'do':{->doge#install()}}
-
-Plug 'alpertuna/vim-header'
-
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'hoob3rt/lualine.nvim'
-
-
-" Plug 'neovim/nvim-lspconfig'
-" packer
-
-Plug 'mattn/emmet-vim', {'for':['html', 'html.handlebars', 'vue','php']}
-Plug 'ludovicchabant/vim-gutentags'
-
-" Rust
-Plug 'arzg/vim-rust-syntax-ext', {'for':['rust']}
-Plug 'rust-lang/rust.vim', {'for':['rust']}
-
-" Colorschemes
-" Plug 'tomasr/molokai'
-Plug 'folke/tokyonight.nvim' ,{'branch':'main'}
-" Plug 'romgrk/doom-one.vim'
-" Plug 'chuling/vim-equinusocio-material'
-" Plug 'vmchale/ion-vim' , {'for':['javascript']}
-" Plug 'cormacrelf/vim-colors-github'
-" Plug 'arthurealike/vim-J'
-" Plug 'mhartington/oceanic-next'
-Plug 'ackyshake/Spacegray.vim', {'branch':'main'}
-Plug 'ccarral/vim-code-dark'
-Plug 'joshdick/onedark.vim', {'branch':'main'}
-
-" JS
-Plug 'pangloss/vim-javascript', {'for': ['javascript']}
-Plug 'gavocanov/vim-js-indent', {'for':['javascript']}
-
-" Latex
-" Plug 'lervag/vimtex', {'for':['latex','tex','plaintex']}
-
-
-" Linting & LSP
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'scrooloose/nerdcommenter' "Comentarios
-Plug 'mileszs/ack.vim'
-
-" Fixer
-" Plug 'google/vim-maktaba'
-" Plug 'google/vim-codefmt'
-" Plug 'google/vim-glaive'
-call plug#end()
-
-
-"===========================================================
-
-syntax enable
-" Term colors
 set termguicolors
+syntax enable
+lua require('plugins')
+colorscheme catppuccin 
+" colorscheme codedark
+" colorscheme onedark 
+" colorscheme rose-pine 
+" colorscheme enfocado 
+" colorscheme koehler 
+" colorscheme spaceduck 
+
+" Term colors
+
+
+"======================== nvim-lsp =============================
+set completeopt=menuone,noinsert,noselect
+lua require('lsp')
+"==============================================================
 
 "======================== coc-nvim=============================
-set hidden
-set nobackup
-set updatetime=300
-set shortmess+=c
-
-
-" function! s:check_back_space() abort
-  " let col = col('.') - 1
-  " return !col || getline('.')[col - 1]  =~ '\s'
-" endfunction
-
-
-" Use <C-l> to trigger completion.
-inoremap <expr> <C-l> coc#refresh()
-imap <C-k> <Plug>(coc-snippets-expand)
-
-" if has('nvim')
-  " inoremap <silent><expr> <c-space> coc#refresh()
-" else
-  " inoremap <silent><expr> <c-@> coc#refresh()
-" endif
-
-nmap <F9> <Plug>(coc-rename)
-nmap <F10> :CocAction<CR>
-
 " GoTo code navigations.
-autocmd User CocNvimInit nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader>ac  <Plug>(coc-codeaction)
+" autocmd User CocNvimInit nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+" nmap <leader>ac  <Plug>(coc-codeaction)
 
-nmap <F9> <Plug>(coc-rename)
+" nmap <F9> <Plug>(coc-rename)
 
 " Map function and class text objects
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
+" xmap if <Plug>(coc-funcobj-i)
+" omap if <Plug>(coc-funcobj-i)
+" xmap af <Plug>(coc-funcobj-a)
+" omap af <Plug>(coc-funcobj-a)
+" xmap ic <Plug>(coc-classobj-i)
+" omap ic <Plug>(coc-classobj-i)
+" xmap ac <Plug>(coc-classobj-a)
+" omap ac <Plug>(coc-classobj-a)
 
-" Use K to show documentation in preview window.
-nmap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-let g:coc_filetype_map = {'styl': 'css'}
-"==============================================================
 
 " ================ vim-header ====================
 let g:header_field_author = 'Carlos Carral'
@@ -277,14 +168,21 @@ hi Comment cterm=italic
 "===================== colorschemes ========================
 " let g:tokyonight_italic_functions = 1
 " let g:tokyonight_style = "night"
-" colorscheme tokyonight
+" colorscheme github
+let g:equinusocio_material_style = 'darker'
+" let g:lightline = { 'colorscheme': '' }
+" let g:lightline ={'colorscheme': 'catppuccin'} 
+" lua require("catppuccin").set_up({})
 let g:codedark_italics = 1
-colorscheme codedark 
+" colorscheme codedark 
+" colorscheme equinusocio_material
 " colorscheme spacegray 
 
-hi CocErrorSign ctermfg=Red guifg=#ff4545
-hi CocWarningSign ctermfg=Yellow guifg=#ffc86b   
-hi CocHintSign ctermfg=Red guifg=#ababab
+hi LspDiagnosticsDefaultError ctermfg=Red guifg=#ff4545
+hi LspDiagnosticsDefaultWarning ctermfg=Yellow guifg=#ffc86b   
+hi LspDiagnosticsDefaultHint ctermfg=Red guifg=#ababab
+"
+
 "===========================================================
 
 ""===================== statusline ========================
@@ -292,12 +190,16 @@ set noshowmode
 set laststatus=2
 "==========================================================
 
+"====================== lightline =========================
+"==========================================================
+
 ""===================== lualine ========================
-lua require('lualine').setup{ options = { theme = 'onedark' , section_separators = '', component_separators = '|', extensions='nvim-tree'} }
+
 "==========================================================
 
 "===================== NvimTree ========================
-lua require 'nvim-tree'.setup{} 
+let g:nvim_tree_respect_buf_cwd = 1
+"lua require 'nvim-tree'.setup{} 
 map <M-f> :NvimTreeToggle<CR>
 "===========================================================
 
@@ -371,7 +273,7 @@ let g:plug_timeout = 300
 "===================== startify ========================
 let g:startify_change_to_dir = 0
 let g:startify_session_autoload = 1
-let g:startify_bookmarks = [{'v':'~/.vimrc'}]
+let g:startify_bookmarks = [{'v':'~/.vimrc','w':'~/.config/nvim/lua/lsp.lua'}]
 let g:startify_lists = [
                     \ {'type': 'dir',   'header': ['        '.split(getcwd(),"\/")[-1]]},
                     \ {'type': 'sessions',   'header': ['        Sesiones']},
