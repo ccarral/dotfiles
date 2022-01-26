@@ -65,9 +65,9 @@ lsp_installer.on_server_ready(function(server)
     if server.name == "rust_analyzer" then
         local server_options = server:get_default_options()
         server_options['on_attach'] = on_attach
-        rust_opts.server = server_options 
+        rust_opts.server = vim.tbl_deep_extend("force",server_options, global_opts) 
         require('rust-tools').setup(rust_opts)
-        return 
+       server:attach_buffers()
         -- vim.cmd [[ do User LspAttachBuffers ]]
    else
        server:setup(global_opts)
@@ -75,7 +75,7 @@ lsp_installer.on_server_ready(function(server)
 
     -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
    -- server:setup(global_opts)
-   vim.cmd [[ do User LspAttachBuffers ]]
+   -- vim.cmd [[ do User LspAttachBuffers ]]
 end)
  
 

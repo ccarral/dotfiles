@@ -72,7 +72,10 @@ return require('packer').startup(function()
     use 'justinmk/vim-sneak'
     use 'tpope/vim-eunuch'
     use 'cespare/vim-toml'
-    --Plug 'kkoomen/vim-doge', {'do':{->doge#install()}}
+    use {
+        'kkoomen/vim-doge', 
+        run = ':call doge#install()',
+    }
 
     use {
         'kyazdani42/nvim-tree.lua',
