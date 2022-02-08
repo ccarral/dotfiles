@@ -101,11 +101,11 @@ set autowrite
 set termguicolors
 syntax enable
 lua require('plugins')
-colorscheme catppuccin 
+" colorscheme catppuccin 
 " colorscheme codedark
 " colorscheme onedark 
 " colorscheme rose-pine 
-" colorscheme enfocado 
+colorscheme enfocado 
 " colorscheme koehler 
 " colorscheme spaceduck 
 

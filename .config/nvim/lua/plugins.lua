@@ -1,6 +1,7 @@
 return require('packer').startup(function()
   -- Packer can manage itself
     use 'wbthomason/packer.nvim'
+    use 'vim-test/vim-test'
     use { "rcarriga/vim-ultest", requires = {"vim-test/vim-test"}, run = ":UpdateRemotePlugins" }
     use {
       'nvim-lualine/lualine.nvim',
@@ -10,9 +11,9 @@ return require('packer').startup(function()
           local lualine = require('lualine').setup{ 
               options = { 
                   -- theme = 'spaceduck' , 
-                  -- theme = 'enfocado' , 
+                  theme = 'enfocado' , 
                   -- theme = 'onedark' , 
-                  theme = 'catppuccin' , 
+                  -- theme = 'catppuccin' , 
                   -- theme = 'codedark', 
                   -- theme = 'rose-pine' , 
                   section_separators = '', 
@@ -55,7 +56,7 @@ return require('packer').startup(function()
         config = function()
             vim.g.enfocado_style = 'neon'
             -- Load colorscheme after options
-            -- vim.cmd('autocmd VimEnter * ++nested colorscheme enfocado')
+            vim.cmd('autocmd VimEnter * ++nested colorscheme enfocado')
             -- vim.cmd('colorscheme enfocado')
         end
     }
