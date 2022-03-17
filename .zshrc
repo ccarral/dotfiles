@@ -1,18 +1,19 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export PATH="/home/carlos-II/bin/MATLAB/R2017a/bin:$PATH"
-export PATH="/home/carlos-II/.npm/bin/:$PATH"
-export PATH="/opt/oracle/instantclient_19_3:$PATH"
-export PATH="/opt/gcc-arm/bin:$PATH"
-export PATH="/home/.local/nvim/:$PATH"
+export PATH="$HOME/bin/MATLAB/R2017a/bin:$PATH"
+export PATH="$HOME/.npm/bin/:$PATH"
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/carlos-II/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 
-export FLYCTL_INSTALL="/home/carlos-II/.fly"
+export FLYCTL_INSTALL="$HOME/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
+
+export PATH="$HOME/.local/bin:$PATH"
+
+export JAVA_HOME=$(dirname $(dirname $(readlink $(readlink $(which javac)))))
 
 # Para las chingaderas de oracle
 # export LD_LIBRARY_PATH=/opt/oracle/instantclient_19_3:$LD_LIBRARY_PATH
@@ -21,9 +22,9 @@ export PATH="$FLYCTL_INSTALL/bin:$PATH"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
 # ZSH_THEME="random"
-# ZSH_THEME="rkj-repos"
+ZSH_THEME="rkj-repos"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -117,8 +118,8 @@ export PGDATA=~/.db
 AUTO_CD="false"
 
 
-alias ll="lsd -a1"
-alias l="lsd -1"
+alias ll="ls -a1"
+alias l="ls -1"
 alias x="xdg-open"
 alias c="clear"
 alias vim="nvim"
@@ -138,4 +139,4 @@ alias cc="cargo check"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 # export SDKMAN_DIR="/home/carlos-II/.sdkman"
-[[ -s "/home/carlos-II/.sdkman/bin/sdkman-init.sh" ]] && source "/home/carlos-II/.sdkman/bin/sdkman-init.sh"
+[[ -s $HOME/.sdkman/bin/sdkman-init.sh ]] && source $HOME/.sdkman/bin/sdkman-init.sh
