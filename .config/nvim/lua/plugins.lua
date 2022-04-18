@@ -1,8 +1,7 @@
 return require('packer').startup(function()
   -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-    use 'vim-test/vim-test'
-    use { "rcarriga/vim-ultest", requires = {"vim-test/vim-test"}, run = ":UpdateRemotePlugins" }
+    use 'pest-parser/pest.vim'
     use {
       'nvim-lualine/lualine.nvim',
       requires = {'kyazdani42/nvim-web-devicons', opt = false},
@@ -11,11 +10,13 @@ return require('packer').startup(function()
           local lualine = require('lualine').setup{ 
               options = { 
                   -- theme = 'spaceduck' , 
-                  theme = 'enfocado' , 
-                  -- theme = 'onedark' , 
+                  -- theme = 'enfocado' , 
+                  theme = 'onedark', 
                   -- theme = 'catppuccin' , 
                   -- theme = 'codedark', 
                   -- theme = 'rose-pine' , 
+                  -- theme = 'edge', 
+                  -- theme = 'auto', 
                   section_separators = '', 
                   component_separators = '|', 
                   extensions='nvim-tree', 
@@ -25,11 +26,17 @@ return require('packer').startup(function()
 
       end,
     }
+    use {
+        'sainnhe/edge',
+        config = function()
+            vim.cmd("let g:edge_style = 'aura'")
+            vim.cmd('colorscheme edge')
+        end
+    }
     use({
         "catppuccin/nvim",
         as = "catppuccin"
     })
-    use 'pineapplegiant/spaceduck'
     use{  
         'windwp/nvim-autopairs',
         config = function()
@@ -56,19 +63,17 @@ return require('packer').startup(function()
         config = function()
             vim.g.enfocado_style = 'neon'
             -- Load colorscheme after options
-            vim.cmd('autocmd VimEnter * ++nested colorscheme enfocado')
+            -- vim.cmd('autocmd VimEnter * ++nested colorscheme enfocado')
             -- vim.cmd('colorscheme enfocado')
         end
     }
     use 'andymass/vim-matchup'
-    use 'preservim/tagbar'
-    -- use 'Dimercel/todo-vim', {'on': 'TODOToggle'}
     use 'tpope/vim-surround'
     use 'tpope/vim-fugitive'
+    use 'airblade/vim-gitgutter'
     use 'tpope/vim-obsession'
     use 'mhinz/vim-startify'
     use 'tpope/vim-unimpaired'
-    use 'tpope/vim-dispatch'
     use 'tpope/vim-repeat'
     use 'justinmk/vim-sneak'
     use 'tpope/vim-eunuch'
@@ -106,7 +111,6 @@ return require('packer').startup(function()
     use 'folke/tokyonight.nvim'
     use 'romgrk/doom-one.vim'
     use 'yunlingz/equinusocio-material.vim'
-    use 'shaunsingh/nord.nvim'
     use{
         'rose-pine/neovim',
         as = 'rose-pine',

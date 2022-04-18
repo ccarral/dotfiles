@@ -101,11 +101,13 @@ set autowrite
 set termguicolors
 syntax enable
 lua require('plugins')
+let g:edge_style = 'neon'
+colorscheme edge 
 " colorscheme catppuccin 
 " colorscheme codedark
 " colorscheme onedark 
 " colorscheme rose-pine 
-colorscheme enfocado 
+" colorscheme enfocado 
 " colorscheme koehler 
 " colorscheme spaceduck 
 
@@ -231,9 +233,6 @@ if !exists("g:gutentags_project_info")
 endif
 call add(g:gutentags_project_info, {'type': 'rust', 'file': 'Cargo.toml'})
 let g:gutentags_ctags_executable_rust = $HOME.'/.vim/shims/rusttags.sh'
-"===========================================================
-
-
 
 "===================== NERDComment =========================
 let g:NERDSpaceDelims = 1
@@ -262,18 +261,11 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 "   Sneak
 let g:sneak#label = 1
 
-" Matlab settings
-let g:matlab_server_launcher = 'tmux' 
-
-
-"   Vim-plug settings
-let g:plug_timeout = 300
-
 "   Startify settings
 "===================== startify ========================
 let g:startify_change_to_dir = 0
 let g:startify_session_autoload = 1
-let g:startify_bookmarks = [{'v':'~/.vimrc','w':'~/.config/nvim/lua/lsp.lua'}]
+let g:startify_bookmarks = [{'v':'~/.config/nvim/init.vim','w':'~/.config/nvim/lua/lsp.lua'}]
 let g:startify_lists = [
                     \ {'type': 'dir',   'header': ['        '.split(getcwd(),"\/")[-1]]},
                     \ {'type': 'sessions',   'header': ['        Sesiones']},
