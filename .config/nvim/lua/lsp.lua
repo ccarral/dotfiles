@@ -70,6 +70,9 @@ lsp_installer.on_server_ready(function(server)
        server:attach_buffers()
         -- vim.cmd [[ do User LspAttachBuffers ]]
    else
+       if server.name == "volar" then
+           global_opts["cmd"] = {"vls","--stdio"}
+       end
        server:setup(global_opts)
    end
 
