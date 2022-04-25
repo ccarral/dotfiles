@@ -11,11 +11,12 @@ return require('packer').startup(function()
               options = { 
                   -- theme = 'spaceduck' , 
                   -- theme = 'enfocado' , 
-                  theme = 'onedark', 
+                  -- theme = 'onedark', 
                   -- theme = 'catppuccin' , 
                   -- theme = 'codedark', 
                   -- theme = 'rose-pine' , 
                   -- theme = 'edge', 
+                  theme = 'nightfly', 
                   -- theme = 'auto', 
                   section_separators = '', 
                   component_separators = '|', 
@@ -26,11 +27,12 @@ return require('packer').startup(function()
 
       end,
     }
+    use 'bluz71/vim-nightfly-guicolors'
     use {
         'sainnhe/edge',
         config = function()
-            vim.cmd("let g:edge_style = 'aura'")
-            vim.cmd('colorscheme edge')
+            -- vim.cmd("let g:edge_style = 'neon'")
+            -- vim.cmd('colorscheme edge')
         end
     }
     use({
@@ -102,7 +104,7 @@ return require('packer').startup(function()
     use 'hrsh7th/vim-vsnip'
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
-    use 'nvim-telescope/telescope.nvim'
+    -- use 'nvim-telescope/telescope.nvim'
     use 'mattn/emmet-vim'
     use 'ludovicchabant/vim-gutentags'
 

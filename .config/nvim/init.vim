@@ -50,6 +50,22 @@ set wildmenu
 let g:termdebug_wide = 1
 let g:markdown_fenced_languages=["rust","bash", "sql","man"]
 
+"   Disable default plugins
+let g:loaded_matchparen        = 1
+let g:loaded_matchit           = 1
+let g:loaded_logiPat           = 1
+let g:loaded_rrhelper          = 1
+let g:loaded_tarPlugin         = 1
+let g:loaded_gzip              = 1
+let g:loaded_zipPlugin         = 1
+let g:loaded_2html_plugin      = 1
+let g:loaded_shada_plugin      = 1
+let g:loaded_spellfile_plugin  = 1
+let g:loaded_netrw             = 1
+let g:loaded_netrwPlugin       = 1
+let g:loaded_tutor_mode_plugin = 1
+let g:loaded_remote_plugins    = 1
+
 
 "   Mapping kj -> ESC 
 inoremap kj <ESC>
@@ -101,8 +117,9 @@ set autowrite
 set termguicolors
 syntax enable
 lua require('plugins')
-let g:edge_style = 'neon'
-colorscheme edge 
+" let g:edge_style = 'neon'
+" colorscheme edge 
+colorscheme nightfly 
 " colorscheme catppuccin 
 " colorscheme codedark
 " colorscheme onedark 
@@ -195,19 +212,11 @@ set laststatus=2
 "====================== lightline =========================
 "==========================================================
 
-""===================== lualine ========================
-
-"==========================================================
-
 "===================== NvimTree ========================
 let g:nvim_tree_respect_buf_cwd = 1
 "lua require 'nvim-tree'.setup{} 
 map <M-f> :NvimTreeToggle<CR>
 "===========================================================
-
-"===================== vim-test  ==========================
-let test#strategy = "neovim"
-"==========================================================
 
 "===================== emmet ========================
 let g:user_emmet_leader_key=','
@@ -217,14 +226,6 @@ let g:user_emmet_leader_key=','
 "===================== tagbar ========================
 noremap <M-t> :TagbarToggle<CR>
 "====================================================
-
-
-
-"===================== omnifunc ========================
-" set omnifunc=syntaxcomplete#Complete
-" set omnifunc=v:lua.vim.lsp.omnifunc
-" set complete-=i
-"===========================================================
 
 
 "===================== gutentags ==========================
