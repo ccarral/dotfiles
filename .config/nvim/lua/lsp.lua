@@ -57,7 +57,6 @@ local lsp_installer = require("nvim-lsp-installer")
 
 local lsp_installer_server = require("nvim-lsp-installer.server")
 
-
 lsp_installer.on_server_ready(function(server)
     -- local opts = {}
 
@@ -67,12 +66,14 @@ lsp_installer.on_server_ready(function(server)
         server_options['on_attach'] = on_attach
         rust_opts.server = vim.tbl_deep_extend("force",server_options, global_opts) 
         require('rust-tools').setup(rust_opts)
-       server:attach_buffers()
+        server:attach_buffers()
         -- vim.cmd [[ do User LspAttachBuffers ]]
+   elseif server.name == "volar" then
+          local volar_options = server:get_default_options()
+          volar_options["cmd"] = {"vls","--stdio"}
+          volar_options["on_attach"] = on_attach
+          server:setup(volar_options)
    else
-       if server.name == "volar" then
-           global_opts["cmd"] = {"vls","--stdio"}
-       end
        server:setup(global_opts)
    end
 
