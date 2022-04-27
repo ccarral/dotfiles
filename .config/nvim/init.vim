@@ -101,10 +101,6 @@ inoremap <C-v> <ESC>"+pa
 nnoremap <Leader>f :find 
 nnoremap <Leader>e :edit 
 
-"   Mapeos para cambiar de tabs  
-" map <C-l> gt
-" map <C-n> gT
-
 "   Mapeos para cambiar de buffer
 map <C-w> <C-w><C-w>
 
@@ -119,7 +115,8 @@ syntax enable
 lua require('plugins')
 " let g:edge_style = 'neon'
 " colorscheme edge 
-colorscheme nightfly 
+" colorscheme nightfly 
+colorscheme moonfly 
 " colorscheme catppuccin 
 " colorscheme codedark
 " colorscheme onedark 

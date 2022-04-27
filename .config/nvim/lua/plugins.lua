@@ -9,15 +9,9 @@ return require('packer').startup(function()
       config = function()
           local lualine = require('lualine').setup{ 
               options = { 
-                  -- theme = 'spaceduck' , 
-                  -- theme = 'enfocado' , 
-                  -- theme = 'onedark', 
-                  -- theme = 'catppuccin' , 
-                  -- theme = 'codedark', 
-                  -- theme = 'rose-pine' , 
-                  -- theme = 'edge', 
-                  theme = 'nightfly', 
-                  -- theme = 'auto', 
+                  fmt = string.lower,
+                  theme = 'enfocado' , 
+                  -- theme = 'moonfly' , 
                   section_separators = '', 
                   component_separators = '|', 
                   extensions='nvim-tree', 
@@ -28,6 +22,7 @@ return require('packer').startup(function()
       end,
     }
     use 'bluz71/vim-nightfly-guicolors'
+    use 'bluz71/vim-moonfly-colors'
     use {
         'sainnhe/edge',
         config = function()
