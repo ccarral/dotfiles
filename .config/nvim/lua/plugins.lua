@@ -9,9 +9,7 @@ return require('packer').startup(function()
       config = function()
           local lualine = require('lualine').setup{ 
               options = { 
-                  fmt = string.lower,
                   theme = 'enfocado' , 
-                  -- theme = 'moonfly' , 
                   section_separators = '', 
                   component_separators = '|', 
                   extensions='nvim-tree', 
@@ -21,19 +19,6 @@ return require('packer').startup(function()
 
       end,
     }
-    use 'bluz71/vim-nightfly-guicolors'
-    use 'bluz71/vim-moonfly-colors'
-    use {
-        'sainnhe/edge',
-        config = function()
-            -- vim.cmd("let g:edge_style = 'neon'")
-            -- vim.cmd('colorscheme edge')
-        end
-    }
-    use({
-        "catppuccin/nvim",
-        as = "catppuccin"
-    })
     use{  
         'windwp/nvim-autopairs',
         config = function()
@@ -53,15 +38,7 @@ return require('packer').startup(function()
                     additional_vim_regex_highlighting = false,
                 },
             }
-        end
-    }
-    use {  
-        'wuelnerdotexe/vim-enfocado',
-        config = function()
-            vim.g.enfocado_style = 'neon'
-            -- Load colorscheme after options
-            -- vim.cmd('autocmd VimEnter * ++nested colorscheme enfocado')
-            -- vim.cmd('colorscheme enfocado')
+            vim.api.nvim_set_keymap('', '<M-f>', ':NvimTreeToggle<CR>', {silent=true})
         end
     }
     use 'andymass/vim-matchup'
@@ -83,8 +60,10 @@ return require('packer').startup(function()
     use {
         'kyazdani42/nvim-tree.lua',
         config = function()
+-- │
             require 'nvim-tree'.setup{
-                git={enable = false}
+                git={enable = true},
+                renderer = { indent_markers = { enable = true}}
             }
         end
     }
@@ -104,6 +83,8 @@ return require('packer').startup(function()
     use 'ludovicchabant/vim-gutentags'
 
     -- Colorschemes
+    use 'bluz71/vim-nightfly-guicolors'
+    use 'bluz71/vim-moonfly-colors'
     use 'tomasr/molokai'
     use 'folke/tokyonight.nvim'
     use 'romgrk/doom-one.vim'
@@ -119,14 +100,24 @@ return require('packer').startup(function()
             -- vim.cmd('colorscheme rose-pine')
         end
     }
-    --use 'vmchale/ion-vim' , {'for':['javascript']}
+    use {  
+        'wuelnerdotexe/vim-enfocado',
+        config = function()
+            vim.g.enfocado_style = 'neon'
+            -- Load colorscheme after options
+            -- vim.cmd('autocmd VimEnter * ++nested colorscheme enfocado')
+            -- vim.cmd('colorscheme enfocado')
+        end
+    }
+    use({
+        "catppuccin/nvim",
+        as = "catppuccin"
+    })
     use 'arthurealike/vim-J'
     use 'mhartington/oceanic-next'
     use 'ackyshake/Spacegray.vim'
     use 'ccarral/vim-code-dark'
     use 'joshdick/onedark.vim'
-    --use 'pangloss/vim-javascript', {'for': ['javascript']}
-    --use 'gavocanov/vim-js-indent', {'for':['javascript']}
     use 'scrooloose/nerdcommenter'
     use 'mileszs/ack.vim'
-    end)
+end)
