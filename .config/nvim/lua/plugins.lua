@@ -65,6 +65,8 @@ return require('packer').startup(function()
                 git={enable = true},
                 renderer = { indent_markers = { enable = true}}
             }
+
+            vim.cmd('map <M-f> :NvimTreeToggle<CR>')
         end
     }
     use 'neovim/nvim-lspconfig'

@@ -18,7 +18,7 @@ set undofile
 filetype plugin indent on
 
 " set encoding=UTF-8
-set fillchars=vert:│
+" set fillchars=vert:│
 " set fillchars=vert:|
 
 "   Indentation
