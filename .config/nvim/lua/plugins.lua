@@ -26,6 +26,15 @@ return require('packer').startup(function()
         end
     }
     use {
+      'nvim-telescope/telescope.nvim',
+      requires = {'nvim-lua/plenary.nvim'},
+          config = function ()
+         local telescope = require("telescope")
+         telescope.load_extension('harpoon')
+      end
+        }
+    use {'ThePrimeagen/harpoon'}
+    use {
         'nvim-treesitter/nvim-treesitter',
         config = function()
             require'nvim-treesitter.configs'.setup {
@@ -38,7 +47,6 @@ return require('packer').startup(function()
                     additional_vim_regex_highlighting = false,
                 },
             }
-            vim.api.nvim_set_keymap('', '<M-f>', ':NvimTreeToggle<CR>', {silent=true})
         end
     }
     use 'andymass/vim-matchup'
@@ -62,11 +70,10 @@ return require('packer').startup(function()
         config = function()
 -- │
             require 'nvim-tree'.setup{
-                git={enable = true},
+                git={enable = false },
                 renderer = { indent_markers = { enable = true}}
             }
-
-            vim.cmd('map <M-f> :NvimTreeToggle<CR>')
+            vim.api.nvim_set_keymap('', '<M-f>', ':NvimTreeToggle<CR>', {silent=true})
         end
     }
     use 'neovim/nvim-lspconfig'
