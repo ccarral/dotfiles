@@ -32,7 +32,7 @@ return require('packer').startup(function()
          local telescope = require("telescope")
          telescope.load_extension('harpoon')
       end
-        }
+    }
     use {'ThePrimeagen/harpoon'}
     use {
         'nvim-treesitter/nvim-treesitter',
@@ -59,27 +59,32 @@ return require('packer').startup(function()
     use 'tpope/vim-repeat'
     use 'justinmk/vim-sneak'
     use 'tpope/vim-eunuch'
-    use 'cespare/vim-toml'
+    use {
+        'cespare/vim-toml',
+        ft = {'toml'}
+    }
     use {
         'kkoomen/vim-doge', 
         run = ':call doge#install()',
+        cmd = "DogeGenerate"
     }
-
     use {
         'kyazdani42/nvim-tree.lua',
         config = function()
--- │
             require 'nvim-tree'.setup{
                 git={enable = false },
                 renderer = { indent_markers = { enable = true}}
             }
             vim.api.nvim_set_keymap('', '<M-f>', ':NvimTreeToggle<CR>', {silent=true})
-        end
+        end,
+        keys = "<M-f>"
     }
     use 'neovim/nvim-lspconfig'
     use 'weilbith/nvim-code-action-menu'
     use 'williamboman/nvim-lsp-installer'
-    use 'simrat39/rust-tools.nvim'
+    use {
+        'simrat39/rust-tools.nvim',
+    }
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/nvim-cmp'
@@ -87,8 +92,10 @@ return require('packer').startup(function()
     use 'hrsh7th/vim-vsnip'
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
-    -- use 'nvim-telescope/telescope.nvim'
-    use 'mattn/emmet-vim'
+    use {
+        'mattn/emmet-vim',
+        ft = {'html', 'vue'}
+    }
     use 'ludovicchabant/vim-gutentags'
 
     -- Colorschemes
@@ -116,14 +123,13 @@ return require('packer').startup(function()
             -- Load colorscheme after options
             -- vim.cmd('autocmd VimEnter * ++nested colorscheme enfocado')
             -- vim.cmd('colorscheme enfocado')
-        end
+        end,
     }
     use({
         "catppuccin/nvim",
-        as = "catppuccin"
+        as = "catppuccin",
+        disable = true
     })
-    use 'arthurealike/vim-J'
-    use 'mhartington/oceanic-next'
     use 'ackyshake/Spacegray.vim'
     use 'ccarral/vim-code-dark'
     use 'joshdick/onedark.vim'
