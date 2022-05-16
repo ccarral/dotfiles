@@ -1,43 +1,48 @@
 return require('packer').startup(function()
-  -- Packer can manage itself
+    -- Packer can manage itself
     use 'wbthomason/packer.nvim'
     use 'pest-parser/pest.vim'
-    use {
-      'nvim-lualine/lualine.nvim',
-      requires = {'kyazdani42/nvim-web-devicons', opt = false},
-      opt=false,
-      config = function()
-          local lualine = require('lualine').setup{ 
-              options = { 
-                  theme = 'enfocado' , 
-                  section_separators = '', 
-                  component_separators = '|', 
-                  extensions='nvim-tree', 
-                  icons_enabled = false
-              },
-          }
-
-      end,
-    }
-    use{  
-        'windwp/nvim-autopairs',
+    use { 'xiyaowong/nvim-transparent',
         config = function()
-            require('nvim-autopairs').setup{}
+            require("transparent").setup {}
         end
     }
     use {
-      'nvim-telescope/telescope.nvim',
-      requires = {'nvim-lua/plenary.nvim'},
-          config = function ()
-         local telescope = require("telescope")
-         telescope.load_extension('harpoon')
-      end
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = false },
+        opt = false,
+        config = function()
+            local lualine = require('lualine').setup {
+                options = {
+                    theme = 'moonfly',
+                    section_separators = '',
+                    component_separators = '|',
+                    extensions = 'nvim-tree',
+                    icons_enabled = false
+                },
+            }
+
+        end,
     }
-    use {'ThePrimeagen/harpoon'}
+    use {
+        'windwp/nvim-autopairs',
+        config = function()
+            require('nvim-autopairs').setup {}
+        end
+    }
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            local telescope = require("telescope")
+            telescope.load_extension('harpoon')
+        end
+    }
+    use { 'ThePrimeagen/harpoon' }
     use {
         'nvim-treesitter/nvim-treesitter',
         config = function()
-            require'nvim-treesitter.configs'.setup {
+            require 'nvim-treesitter.configs'.setup {
                 highlight = {
                     enable = true,
                     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
@@ -57,25 +62,24 @@ return require('packer').startup(function()
     use 'mhinz/vim-startify'
     use 'tpope/vim-unimpaired'
     use 'tpope/vim-repeat'
-    use 'justinmk/vim-sneak'
     use 'tpope/vim-eunuch'
     use {
         'cespare/vim-toml',
-        ft = {'toml'}
+        ft = { 'toml' }
     }
     use {
-        'kkoomen/vim-doge', 
+        'kkoomen/vim-doge',
         run = ':call doge#install()',
         cmd = "DogeGenerate"
     }
     use {
         'kyazdani42/nvim-tree.lua',
         config = function()
-            require 'nvim-tree'.setup{
-                git={enable = false },
-                renderer = { indent_markers = { enable = true}}
+            require 'nvim-tree'.setup {
+                git = { enable = false },
+                renderer = { indent_markers = { enable = true } }
             }
-            vim.api.nvim_set_keymap('', '<M-f>', ':NvimTreeToggle<CR>', {silent=true})
+            vim.api.nvim_set_keymap('', '<M-f>', ':NvimTreeToggle<CR>', { silent = true })
         end,
         keys = "<M-f>"
     }
@@ -94,7 +98,7 @@ return require('packer').startup(function()
     use 'nvim-lua/plenary.nvim'
     use {
         'mattn/emmet-vim',
-        ft = {'html', 'vue'}
+        ft = { 'html', 'vue' }
     }
     use 'ludovicchabant/vim-gutentags'
 
@@ -105,7 +109,7 @@ return require('packer').startup(function()
     use 'folke/tokyonight.nvim'
     use 'romgrk/doom-one.vim'
     use 'yunlingz/equinusocio-material.vim'
-    use{
+    use {
         'rose-pine/neovim',
         as = 'rose-pine',
         config = function()
@@ -116,7 +120,7 @@ return require('packer').startup(function()
             -- vim.cmd('colorscheme rose-pine')
         end
     }
-    use {  
+    use {
         'wuelnerdotexe/vim-enfocado',
         config = function()
             vim.g.enfocado_style = 'neon'

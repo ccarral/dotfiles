@@ -103,7 +103,7 @@ nnoremap <Leader>f :find
 nnoremap <Leader>e :edit 
 
 "   Mapeos para cambiar de buffer
-map <C-w> <C-w><C-w>
+nnoremap <C-w> <C-w><C-w>
 
 
 "   Autowrite & Autoread
@@ -119,11 +119,14 @@ hi LspDiagnosticsDefaultError ctermfg=Red guifg=#ff4545
 hi LspDiagnosticsDefaultWarning ctermfg=Yellow guifg=#ffc86b   
 hi LspDiagnosticsDefaultHint ctermfg=Red guifg=#ababab
 hi Comment cterm=italic
+let g:nightflyTransparent = 1
+let g:moonflyTransparent = 1
 colorscheme moonfly 
 
 "======================== nvim-lsp =============================
 set completeopt=menuone,noinsert,noselect
 lua require('lsp')
+" lua require('rust')
 "==============================================================
 
 "====================== statusline ========================

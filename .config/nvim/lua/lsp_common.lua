@@ -24,7 +24,7 @@ M.on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
+  vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
 
   local signs = { Error = " ", Warn = " ", Hint = "●", Info = " " }
 
