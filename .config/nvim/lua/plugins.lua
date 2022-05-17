@@ -1,4 +1,10 @@
-return require('packer').startup(function()
+local fn = vim.fn
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+    packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+end
+
+return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
     use 'pest-parser/pest.vim'
@@ -12,7 +18,7 @@ return require('packer').startup(function()
         requires = { 'kyazdani42/nvim-web-devicons', opt = false },
         opt = false,
         config = function()
-            local lualine = require('lualine').setup {
+            require('lualine').setup {
                 options = {
                     theme = 'moonfly',
                     section_separators = '',
@@ -43,6 +49,7 @@ return require('packer').startup(function()
         'nvim-treesitter/nvim-treesitter',
         config = function()
             require 'nvim-treesitter.configs'.setup {
+                ensure_installed = { "c", "lua", "rust", "javascript", "python", "vue", "css" },
                 highlight = {
                     enable = true,
                     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
@@ -139,4 +146,8 @@ return require('packer').startup(function()
     use 'joshdick/onedark.vim'
     use 'scrooloose/nerdcommenter'
     use 'mileszs/ack.vim'
+
+    if packer_bootstrap then
+        require('packer').sync()
+    end
 end)

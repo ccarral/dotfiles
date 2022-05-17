@@ -57,10 +57,12 @@ local rust_opts = {
     server = global_opts,
 }
 
-
-require("nvim-lsp-installer").setup()
-
 local servers = { 'sumneko_lua', 'tsserver', 'pyright', 'clangd', 'rust_analyzer', 'volar', 'jdtls' }
+
+require("nvim-lsp-installer").setup({
+    ensure_installed = servers
+})
+
 
 for _, lsp in pairs(servers) do
     if lsp == "rust_analyzer" then
