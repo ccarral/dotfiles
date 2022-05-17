@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+green='#00a95b'
+yellow='#f1fa8c'
+dark_gray='#141414'
+light_gray='#282a36'
+white='#ffffff'
+
+tmux set-option -g status-style bg=default
+tmux set-option -g status-left "#[bg=default,fg=${light_gray}]#{?client_prefix,#[bg=${yellow}],} #S "
+tmux set-option -g status-right "#[fg=${dark_gray},bg=${green}] %a %d/%m %R "
+tmux set-window-option -g window-status-current-format "#[fg=${dark_gray},bg=${green}] [#I] #W "
+tmux set-window-option -g window-status-format "#[fg=${white},bg=default] #I #W "
