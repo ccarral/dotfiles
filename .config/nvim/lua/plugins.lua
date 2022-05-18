@@ -20,7 +20,7 @@ return require('packer').startup(function(use)
         config = function()
             require('lualine').setup {
                 options = {
-                    theme = 'moonfly',
+                    theme = require("transparent_lualine").theme(),
                     section_separators = '',
                     component_separators = '|',
                     extensions = 'nvim-tree',
@@ -86,6 +86,7 @@ return require('packer').startup(function(use)
                 git = { enable = false },
                 renderer = { indent_markers = { enable = true } }
             }
+
             vim.api.nvim_set_keymap('', '<M-f>', ':NvimTreeToggle<CR>', { silent = true })
         end,
         keys = "<M-f>"
