@@ -61,6 +61,23 @@ return require('packer').startup(function(use)
             }
         end
     }
+    use { 'nvim-orgmode/orgmode',
+        ft = { 'org' },
+        requires = { 'nvim-treesitter/nvim-treesitter', opt = false },
+        config = function()
+            require('orgmode').setup_ts_grammar()
+            require('orgmode').setup({
+                org_agenda_files = { "~/MEGA/org/*" },
+                org_default_notes_file = "~/MEGA/org/refile.org"
+            })
+        end
+    }
+    use { "akinsho/org-bullets.nvim", config = function()
+        require("org-bullets").setup {
+            symbols = { "◉", "○", "✸", "✿" }
+        }
+    end
+    }
     use 'andymass/vim-matchup'
     use 'tpope/vim-surround'
     use 'tpope/vim-fugitive'

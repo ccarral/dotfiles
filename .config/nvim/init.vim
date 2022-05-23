@@ -176,24 +176,39 @@ let g:startify_enable_special = 1
 let g:startify_session_autoload = 1
 let g:startify_files_number = 0
 let g:startify_bookmarks = [{'v':'~/.config/nvim/init.vim'}]
-let g:startify_lists = [{'type': 'bookmarks',   'header': ['']}]
+let g:startify_lists = [{'type': 'bookmarks','header': ['']}, { 'type': 'sessions','header': ['sesiones']},]
 let g:startify_fortune_use_unicode = 1
 let g:startify_padding_left = 70 
 let g:startify_files_number = 4
 
+" let header_ascii_art_VIM = [
+            " \'                ',
+            " \'                ',
+            " \'                ',
+            " \'                ',
+            " \'                ',
+            " \'                ',
+            " \'                ',
+            " \'                ',
+            " \'┏┓╻┏━╸┏━┓╻ ╻╻┏┳┓',
+            " \'┃┗┫┣╸ ┃ ┃┃┏┛┃┃┃┃',
+            " \'╹ ╹┗━╸┗━┛┗┛ ╹╹ ╹',
+            " \'                ']
 let header_ascii_art_VIM = [
-            \'                ',
-            \'                ',
-            \'                ',
-            \'                ',
-            \'                ',
-            \'                ',
-            \'                ',
-            \'                ',
-            \'┏┓╻┏━╸┏━┓╻ ╻╻┏┳┓',
-            \'┃┗┫┣╸ ┃ ┃┃┏┛┃┃┃┃',
-            \'╹ ╹┗━╸┗━┛┗┛ ╹╹ ╹',
-            \'                ']
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'┌──────┐┌──────┐┌──────┐┌      ┐┌──────┐┌───┐──┐',
+            \'│      ││      ││      ││      │    │   │      │',
+            \'│      ││──────┘│      │└──┐   │    │   │      │',
+            \'└     ─┘└──────┘└──────┘   └───┘└───└──┘└      ┘']
 
 let g:startify_custom_header = startify#center(header_ascii_art_VIM)
 "===========================================================
