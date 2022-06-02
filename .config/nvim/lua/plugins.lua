@@ -37,15 +37,6 @@ return require('packer').startup(function(use)
         end
     }
     use {
-        'nvim-telescope/telescope.nvim',
-        requires = { 'nvim-lua/plenary.nvim' },
-        config = function()
-            local telescope = require("telescope")
-            telescope.load_extension('harpoon')
-        end
-    }
-    use { 'ThePrimeagen/harpoon' }
-    use {
         'nvim-treesitter/nvim-treesitter',
         config = function()
             require 'nvim-treesitter.configs'.setup {
@@ -62,7 +53,6 @@ return require('packer').startup(function(use)
         end
     }
     use { 'nvim-orgmode/orgmode',
-        ft = { 'org' },
         requires = { 'nvim-treesitter/nvim-treesitter', opt = false },
         config = function()
             require('orgmode').setup_ts_grammar()
@@ -130,7 +120,6 @@ return require('packer').startup(function(use)
     -- Colorschemes
     use 'bluz71/vim-nightfly-guicolors'
     use 'bluz71/vim-moonfly-colors'
-    use 'tomasr/molokai'
     use 'folke/tokyonight.nvim'
     use 'romgrk/doom-one.vim'
     use 'yunlingz/equinusocio-material.vim'
@@ -157,7 +146,16 @@ return require('packer').startup(function(use)
     use({
         "catppuccin/nvim",
         as = "catppuccin",
-        disable = true
+        config = function()
+            require("catppuccin").setup {
+                transparent_background = true,
+                nvimtree = {
+                    enabled = true,
+                    transparent_panel = true
+                }
+            }
+            vim.cmd [[colorscheme catppuccin]]
+        end
     })
     use 'ackyshake/Spacegray.vim'
     use 'ccarral/vim-code-dark'
