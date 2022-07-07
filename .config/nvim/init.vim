@@ -125,8 +125,8 @@ hi LspDiagnosticsDefaultHint ctermfg=Red guifg=#ababab
 hi Comment cterm=italic
 let g:nightflyTransparent = 1
 let g:moonflyTransparent = 1
-" colorscheme moonfly 
-colorscheme catppuccin
+colorscheme moonfly 
+" colorscheme catppuccin
 
 "======================== nvim-lsp =============================
 set completeopt=menuone,noinsert,noselect
@@ -186,19 +186,42 @@ let g:startify_fortune_use_unicode = 1
 let g:startify_padding_left = 70 
 let g:startify_files_number = 4
 
+" let header_ascii_art_VIM = [
+            " \'                ',
+            " \'                ',
+            " \'                ',
+            " \'                ',
+            " \'                ',
+            " \'                ',
+            " \'                ',
+            " \'                ',
+            " \'┏┓╻┏━╸┏━┓╻ ╻╻┏┳┓',
+            " \'┃┗┫┣╸ ┃ ┃┃┏┛┃┃┃┃',
+            " \'╹ ╹┗━╸┗━┛┗┛ ╹╹ ╹',
+            " \'                ']
+
 let header_ascii_art_VIM = [
-            \'                ',
-            \'                ',
-            \'                ',
-            \'                ',
-            \'                ',
-            \'                ',
-            \'                ',
-            \'                ',
-            \'┏┓╻┏━╸┏━┓╻ ╻╻┏┳┓',
-            \'┃┗┫┣╸ ┃ ┃┃┏┛┃┃┃┃',
-            \'╹ ╹┗━╸┗━┛┗┛ ╹╹ ╹',
-            \'                ']
+            \" _____________________" ,
+            \"(  ┏┓╻┏━╸┏━┓╻ ╻╻┏┳┓   )",
+            \"(  ┃┗┫┣╸ ┃ ┃┃┏┛┃┃┃┃   )",
+            \"(  ╹ ╹┗━╸┗━┛┗┛ ╹╹ ╹   )",
+            \" ---------------------" ,
+            \"      o                    / \  //\\",
+            \'       o    |\___/|      /   \//  \\',
+            \'            /0  0  \__  /    //  | \\ \\'    ,
+            \'           /     /  \/_/    //   |  \\  \\'  ,
+            \"          @_^_@/     \/_    //    |\   \\" ,
+            \'           //_^_/     \/_ //     |    \    \',
+            \'        ( //) |        \///      |     \     \',
+            \'      ( / /) _|_ /   )  //       |      \     _\',
+            \"    ( // /) '/,_ _ _/  ( ; -.    |    _ _\.-~        .-~~~^-.",
+            \'  (( / / )) ,-{        _      `-.|.-~-.           .~         `.',
+            \" (( // / ))  '/\      /                 ~-. _ .-~      .-~^-.  \\",
+            \' (( /// ))      `.   {            }                   /      \  \',
+            \"  (( / ))     .----~-.\        \-'                 .~         \  `. \^-.",
+            \'             ///.----..>        \             _ -~             `.  ^-`  ^-_',
+            \'               ///-._ _ _ _ _ _ _}^ - - - - ~                     ~-- ,.-~',
+            \'                                                                          ',]
 " let header_ascii_art_VIM = [
             " \'                                                ',
             " \'                                                ',
