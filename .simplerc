@@ -3,22 +3,21 @@ set nocompatible
 set fillchars=vert:│ 
 
 set shiftwidth=4
-"set autoindent
+set autoindent
 set backspace=indent,eol,start
 set tabstop=4
 set softtabstop=4
 set expandtab
 set scrolloff=3
-"set smarttab
+set smarttab
 set incsearch
 set ruler
 set display+=lastline
 
 set number
 set cursorline
+set relativenumber
 
-"Mapeo para inserción de for()
-inoremap ,for for(int i=0;i< ;i++){}<ESC>i<CR><ESC>O
 
 "cada que se abre una ventana horizontal, el default es abajo
 set splitbelow
@@ -29,6 +28,8 @@ set splitright
 set path+=**
 
 set wildmenu
+set guicursor=
+let mapleader = ","
 
 
 "Mapeo kj -> ESC 
@@ -44,10 +45,6 @@ map cc <ESC> :
 vnoremap <C-c> "+y
 inoremap <C-v> <ESC>"+pa
 
-"Mapeos para cambiar de tabs  
-map <C-l> gt
-map <C-n> gT
-
 "Mapeos para cambiar de buffer
 map <C-w> <C-w><C-w>
 
@@ -55,8 +52,22 @@ set autoread
 
 syntax enable
 
-hi Comment cterm=italic
 hi LineNr ctermbg=NONE guibg=NONE
+
+"   Buffer change
+nnoremap <leader>b :ls<CR>:b<space>
+
+"   Write key-binding
+nnoremap <Leader>w :w<CR>
+
+"   Tag kb
+nnoremap <Leader>t :tag<Space>
+
+"   vsplit kb
+nnoremap <Leader>v :vsplit<CR>
+
+"   Unmap J deletion
+map J <NOP>
 
 
 "Settings de status
@@ -83,3 +94,10 @@ let g:java_highlight_java_lang_ids=1
 
 "Config para C
 autocmd FileType c setlocal cindent
+
+"================== recognize header files as C ============
+augroup project
+  autocmd!
+  autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+augroup END
+"===========================================================
