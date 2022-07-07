@@ -116,6 +116,11 @@ return require('packer').startup(function(use)
         ft = { 'html', 'vue' }
     }
     use 'ludovicchabant/vim-gutentags'
+    use { 'norcalli/nvim-colorizer.lua',
+        config = function()
+            require 'colorizer'.setup {}
+        end,
+    }
 
     -- Colorschemes
     use 'bluz71/vim-nightfly-guicolors'
