@@ -105,6 +105,10 @@ nnoremap <Leader>e :edit
 "   Mapeos para cambiar de buffer
 nnoremap <C-w> <C-w><C-w>
 
+nnoremap <Leader>tn<CR> :tabnext<CR>
+nnoremap <Leader>tp<CR> :tabprev<CR>
+nnoremap <Leader>te :tabedit
+nnoremap <Leader>tb :tabs
 
 "   Autowrite & Autoread
 set autoread
