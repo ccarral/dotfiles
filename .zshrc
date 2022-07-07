@@ -12,6 +12,7 @@ export FLYCTL_INSTALL="$HOME/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 
 # export JAVA_HOME=$(dirname $(dirname $(readlink $(readlink $(which javac)))))
 
