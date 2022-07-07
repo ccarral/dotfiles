@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH="$HOME/bin:/usr/local/bin:$PATH"
 
 export PATH="$HOME/bin/MATLAB/R2017a/bin:$PATH"
 export PATH="$HOME/.npm/bin/:$PATH"
@@ -131,10 +131,8 @@ alias vim="nvim"
 alias ssp="systemctl suspend"
 alias hiber="systemctl hibernate"
 alias ohmyzsh="mate ~/.oh-my-zsh"
-# alias matlab="~/bin/MATLAB/R2017a/bin/matlab "
 alias serve="browser-sync start --server --files"
-alias beats="firefox --new-tab https://www.youtube.com/watch\?v\=5qap5aO4i9A &" 
-alias cc="cargo check"
+alias svim="/usr/bin/nvim --noplugin -u ~/.simplerc"
 
 # fortune | cowsay
 
@@ -143,5 +141,9 @@ alias cc="cargo check"
 [[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-# export SDKMAN_DIR="/home/carlos-II/.sdkman"
+export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s $HOME/.sdkman/bin/sdkman-init.sh ]] && source $HOME/.sdkman/bin/sdkman-init.sh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
