@@ -1,7 +1,8 @@
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-    packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+    packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+        install_path })
 end
 
 return require('packer').startup(function(use)
@@ -115,11 +116,25 @@ return require('packer').startup(function(use)
         'mattn/emmet-vim',
         ft = { 'html', 'vue' }
     }
-    use 'ludovicchabant/vim-gutentags'
+    use {
+        'ludovicchabant/vim-gutentags',
+    }
     use { 'norcalli/nvim-colorizer.lua',
         config = function()
             require 'colorizer'.setup {}
         end,
+    }
+
+    use {
+        "folke/todo-comments.nvim",
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+            require("todo-comments").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
     }
 
     -- Colorschemes
@@ -159,14 +174,13 @@ return require('packer').startup(function(use)
                     transparent_panel = true
                 }
             }
-            vim.cmd [[colorscheme catppuccin]]
+            -- vim.cmd [[colorscheme catppuccin]]
         end
     })
     use 'ackyshake/Spacegray.vim'
     use 'ccarral/vim-code-dark'
     use 'joshdick/onedark.vim'
     use 'scrooloose/nerdcommenter'
-    use 'mileszs/ack.vim'
 
     if packer_bootstrap then
         require('packer').sync()

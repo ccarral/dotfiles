@@ -67,6 +67,13 @@ let g:loaded_netrwPlugin       = 1
 let g:loaded_tutor_mode_plugin = 1
 let g:loaded_remote_plugins    = 1
 
+let g:do_filetype_lua = 1
+
+if executable('rg')
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
 
 "   Mapping kj -> ESC 
 inoremap kj <ESC>
@@ -125,7 +132,12 @@ hi LspDiagnosticsDefaultHint ctermfg=Red guifg=#ababab
 hi Comment cterm=italic
 let g:nightflyTransparent = 1
 let g:moonflyTransparent = 1
+" let g:tokyonight_style = 'night'
+let g:tokyonight_transparent = 1 
+let g:tokyonight_transparent_sidebar = 1 
+" colorscheme tokyonight 
 colorscheme moonfly 
+
 " colorscheme catppuccin
 
 "======================== nvim-lsp =============================
@@ -148,9 +160,11 @@ let g:user_emmet_leader_key=','
 "====================================================
 
 "===================== gutentags ==========================
+
 if !exists("g:gutentags_project_info")
   let g:gutentags_project_info = []
 endif
+let g:gutentags_cache_dir=$HOME.'/.tags'
 call add(g:gutentags_project_info, {'type': 'rust', 'file': 'Cargo.toml'})
 let g:gutentags_ctags_executable_rust = $HOME.'/.vim/shims/rusttags.sh'
 

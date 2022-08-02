@@ -57,7 +57,7 @@ local rust_opts = {
     server = global_opts,
 }
 
-local servers = { 'sumneko_lua', 'tsserver', 'pyright', 'clangd', 'rust_analyzer', 'volar', 'jdtls' }
+local servers = { 'sumneko_lua', 'tsserver', 'pyright', 'clangd', 'rust_analyzer', 'volar', 'jdtls', 'vimls', 'csharp_ls' }
 
 require("nvim-lsp-installer").setup({
     ensure_installed = servers
