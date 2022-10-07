@@ -1,11 +1,8 @@
-" File              : .vimrc
-" Author            : Carlos Carral <carloscarral13@gmail.com>
-" Date              : 10.08.2020
-" Last Modified Date: 19/08/2020
 "------------- ------------
-"       Custm vim
+"       Custom neovim
 "------------- ------------
 set conceallevel=3
+
 
 "   Line Nr
 set relativenumber
@@ -17,9 +14,7 @@ set undofile
 
 filetype plugin indent on
 
-" set encoding=UTF-8
-" set fillchars=vert:│
-" set fillchars=vert:|
+set updatetime=100
 
 "   Indentation
 set shiftwidth=4
@@ -29,7 +24,7 @@ set expandtab
 set scrolloff=3
 " set ruler
 set nrformats-=octal
-set textwidth=74
+" set textwidth=74
 
 set signcolumn=number
 set guicursor=
@@ -67,8 +62,10 @@ let g:loaded_netrwPlugin       = 1
 let g:loaded_tutor_mode_plugin = 1
 let g:loaded_remote_plugins    = 1
 
-let g:do_filetype_lua = 1
+" This presented some issues
+" let g:do_filetype_lua = 1
 
+" Ripgrep
 if executable('rg')
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 set grepformat=%f:%l:%c:%m,%f:%l:%m
@@ -78,9 +75,6 @@ endif
 "   Mapping kj -> ESC 
 inoremap kj <ESC>
 inoremap KJ <ESC>
-
-"   Mapping cc-> :commmand
-map cc <ESC> :
 
 "   Buffer change
 nnoremap <leader>b :ls<CR>:b<space>
@@ -97,6 +91,8 @@ nnoremap <Leader>v :vsplit<CR>
 "   Git maps
 nnoremap <Leader>gs :Git<CR> 
 nnoremap <Leader>gc :Git commit<CR> 
+nnoremap gdh :diffget //2<CR>
+nnoremap gdl :diffget //3<CR>
 
 "   Unmap J deletion
 map J <NOP>
@@ -117,6 +113,10 @@ nnoremap <Leader>tp<CR> :tabprev<CR>
 nnoremap <Leader>te :tabedit
 nnoremap <Leader>tb :tabs
 
+" Harpoon
+nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
+nnoremap <leader>hb :lua require("harpoon.ui").toggle_quick_menu()<CR>
+
 "   Autowrite & Autoread
 set autoread
 set autowrite
@@ -124,6 +124,12 @@ set autowrite
 
 set termguicolors
 syntax enable
+
+"===================== NERDComment =========================
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs=1
+"===========================================================
+
 lua require('plugins')
 "===================== colorschemes ========================
 hi LspDiagnosticsDefaultError ctermfg=Red guifg=#ff4545
@@ -132,18 +138,14 @@ hi LspDiagnosticsDefaultHint ctermfg=Red guifg=#ababab
 hi Comment cterm=italic
 let g:nightflyTransparent = 1
 let g:moonflyTransparent = 1
-" let g:tokyonight_style = 'night'
+let g:tokyonight_style = 'night'
 let g:tokyonight_transparent = 1 
 let g:tokyonight_transparent_sidebar = 1 
-" colorscheme tokyonight 
-colorscheme moonfly 
-
-" colorscheme catppuccin
+colorscheme catppuccin
 
 "======================== nvim-lsp =============================
 set completeopt=menuone,noinsert,noselect
 lua require('lsp')
-" lua require('rust')
 "==============================================================
 
 "====================== statusline ========================
@@ -151,27 +153,17 @@ set noshowmode
 set laststatus=2
 "==========================================================
 
-"===================== NvimTree ========================
-" map <M-f> :NvimTreeToggle<CR>
-"===========================================================
-
 "===================== emmet ========================
 let g:user_emmet_leader_key=','
 "====================================================
 
 "===================== gutentags ==========================
-
 if !exists("g:gutentags_project_info")
   let g:gutentags_project_info = []
 endif
 let g:gutentags_cache_dir=$HOME.'/.tags'
 call add(g:gutentags_project_info, {'type': 'rust', 'file': 'Cargo.toml'})
 let g:gutentags_ctags_executable_rust = $HOME.'/.vim/shims/rusttags.sh'
-
-"===================== NERDComment =========================
-let g:NERDSpaceDelims = 1
-let g:NERDCompactSexyComs=1
-"===========================================================
 
 "================== recognize header files as C ============
 augroup project
@@ -184,9 +176,6 @@ augroup END
 "   Autoclose preview window
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-"   Sneak
-let g:sneak#label = 1
 
 "   Startify settings
 "===================== startify ========================
@@ -214,54 +203,46 @@ let g:startify_files_number = 4
             " \'╹ ╹┗━╸┗━┛┗┛ ╹╹ ╹',
             " \'                ']
 
-let header_ascii_art_VIM = [
-            \" _____________________" ,
-            \"(  ┏┓╻┏━╸┏━┓╻ ╻╻┏┳┓   )",
-            \"(  ┃┗┫┣╸ ┃ ┃┃┏┛┃┃┃┃   )",
-            \"(  ╹ ╹┗━╸┗━┛┗┛ ╹╹ ╹   )",
-            \" ---------------------" ,
-            \"      o                    / \  //\\",
-            \'       o    |\___/|      /   \//  \\',
-            \'            /0  0  \__  /    //  | \\ \\'    ,
-            \'           /     /  \/_/    //   |  \\  \\'  ,
-            \"          @_^_@/     \/_    //    |\   \\" ,
-            \'           //_^_/     \/_ //     |    \    \',
-            \'        ( //) |        \///      |     \     \',
-            \'      ( / /) _|_ /   )  //       |      \     _\',
-            \"    ( // /) '/,_ _ _/  ( ; -.    |    _ _\.-~        .-~~~^-.",
-            \'  (( / / )) ,-{        _      `-.|.-~-.           .~         `.',
-            \" (( // / ))  '/\      /                 ~-. _ .-~      .-~^-.  \\",
-            \' (( /// ))      `.   {            }                   /      \  \',
-            \"  (( / ))     .----~-.\        \-'                 .~         \  `. \^-.",
-            \'             ///.----..>        \             _ -~             `.  ^-`  ^-_',
-            \'               ///-._ _ _ _ _ _ _}^ - - - - ~                     ~-- ,.-~',
-            \'                                                                          ',]
 " let header_ascii_art_VIM = [
-            " \'                                                ',
-            " \'                                                ',
-            " \'                                                ',
-            " \'                                                ',
-            " \'                                                ',
-            " \'                                                ',
-            " \'                                                ',
-            " \'                                                ',
-            " \'                                                ',
-            " \'                                                ',
-            " \'┌──────┐┌──────┐┌──────┐┌      ┐┌──────┐┌───┐──┐',
-            " \'│      ││      ││      ││      │    │   │      │',
-            " \'│      ││──────┘│      │└──┐   │    │   │      │',
-            " \'└     ─┘└──────┘└──────┘   └───┘└───└──┘└      ┘']
+            " \" _____________________" ,
+            " \"(  ┏┓╻┏━╸┏━┓╻ ╻╻┏┳┓   )",
+            " \"(  ┃┗┫┣╸ ┃ ┃┃┏┛┃┃┃┃   )",
+            " \"(  ╹ ╹┗━╸┗━┛┗┛ ╹╹ ╹   )",
+            " \" ---------------------" ,
+            " \"      o                    / \  //\\",
+            " \'       o    |\___/|      /   \//  \\',
+            " \'            /0  0  \__  /    //  | \\ \\'    ,
+            " \'           /     /  \/_/    //   |  \\  \\'  ,
+            " \"          @_^_@/     \/_    //    |\   \\" ,
+            " \'           //_^_/     \/_ //     |    \    \',
+            " \'        ( //) |        \///      |     \     \',
+            " \'      ( / /) _|_ /   )  //       |      \     _\',
+            " \"    ( // /) '/,_ _ _/  ( ; -.    |    _ _\.-~        .-~~~^-.",
+            " \'  (( / / )) ,-{        _      `-.|.-~-.           .~         `.',
+            " \" (( // / ))  '/\      /                 ~-. _ .-~      .-~^-.  \\",
+            " \' (( /// ))      `.   {            }                   /      \  \',
+            " \"  (( / ))     .----~-.\        \-'                 .~         \  `. \^-.",
+            " \'             ///.----..>        \             _ -~             `.  ^-`  ^-_',
+            " \'               ///-._ _ _ _ _ _ _}^ - - - - ~                     ~-- ,.-~',
+            " \'                                                                          ',]
+let header_ascii_art_VIM = [
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'                                                ',
+            \'┌──────┐┌──────┐┌──────┐┌      ┐┌──────┐┌───┐──┐',
+            \'│      ││      ││      ││      │    │   │      │',
+            \'│      ││──────┘│      │└──┐   │    │   │      │',
+            \'└     ─┘└──────┘└──────┘   └───┘└───└──┘└      ┘']
 
 let g:startify_custom_header = startify#center(header_ascii_art_VIM)
 "===========================================================
-
-
-runtime plugin/dragvisuals.vim                                  
-vmap  <expr>  <LEFT>   DVB_Drag('left')                         
-vmap  <expr>  <RIGHT>  DVB_Drag('right')                        
-vmap  <expr>  <DOWN>   DVB_Drag('down')                         
-vmap  <expr>  <UP>     DVB_Drag('up')                           
-vmap  <expr>  D        DVB_Duplicate()                          
 
 function Fecha()
     read !date

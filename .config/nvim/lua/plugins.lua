@@ -5,15 +5,33 @@ if fn.empty(fn.glob(install_path)) > 0 then
         install_path })
 end
 
+require("packer").init {
+    auto_reload_compiled = true
+}
+
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-    use 'pest-parser/pest.vim'
-    use { 'xiyaowong/nvim-transparent',
+    use { 'lewis6991/impatient.nvim',
         config = function()
-            require("transparent").setup {}
+            require('impatient')
         end
     }
+    use 'editorconfig/editorconfig-vim'
+    use { "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            require("indent_blankline").setup {
+                show_end_of_line = false,
+                buftype_exclude = { "terminal" },
+                filetype_exclude = { "startify" },
+            }
+        end
+    }
+    -- use { 'xiyaowong/nvim-transparent',
+    -- config = function()
+    -- require("transparent").setup {}
+    -- end
+    -- }
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = false },
@@ -25,11 +43,22 @@ return require('packer').startup(function(use)
                     section_separators = '',
                     component_separators = '|',
                     extensions = 'nvim-tree',
-                    icons_enabled = false
+                    icons_enabled = false,
+                    sections = {
+                        lualine_b = {
+                            symbols = { error = ' ', warn = ' ', info = '', hint = '' }
+                        }
+                    }
                 },
             }
 
         end,
+    }
+    use {
+        'simrat39/symbols-outline.nvim',
+        config = function()
+            require('symbols-outline').setup {}
+        end
     }
     use {
         'windwp/nvim-autopairs',
@@ -41,7 +70,8 @@ return require('packer').startup(function(use)
         'nvim-treesitter/nvim-treesitter',
         config = function()
             require 'nvim-treesitter.configs'.setup {
-                ensure_installed = { "c", "lua", "rust", "javascript", "python", "vue", "css" },
+                ensure_installed = { "c", "rust", "javascript", "python", "vue", "css", "java", "typescript",
+                    "latex" },
                 highlight = {
                     enable = true,
                     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
@@ -53,21 +83,49 @@ return require('packer').startup(function(use)
             }
         end
     }
-    use { 'nvim-orgmode/orgmode',
+
+    use {
+        'nvim-treesitter/nvim-treesitter-textobjects',
         requires = { 'nvim-treesitter/nvim-treesitter', opt = false },
         config = function()
-            require('orgmode').setup_ts_grammar()
-            require('orgmode').setup({
-                org_agenda_files = { "~/MEGA/org/*" },
-                org_default_notes_file = "~/MEGA/org/refile.org"
-            })
+            require 'nvim-treesitter.configs'.setup {
+                textobjects = {
+                    select = {
+                        enable = true,
+
+                        -- Automatically jump forward to textobj, similar to targets.vim
+                        lookahead = true,
+
+                        keymaps = {
+                            -- You can use the capture groups defined in textobjects.scm
+                            ["af"] = "@function.outer",
+                            ["if"] = "@function.inner",
+                            ["ac"] = "@class.outer",
+                            ["ic"] = "@class.inner",
+                        },
+                        -- You can choose the select mode (default is charwise 'v')
+                        selection_modes = {
+                            ['@parameter.outer'] = 'v', -- charwise
+                            ['@function.outer'] = 'V', -- linewise
+                            ['@class.outer'] = '<c-v>', -- blockwise
+                        },
+                        -- If you set this to `true` (default is `false`) then any textobject is
+                        -- extended to include preceding xor succeeding whitespace. Succeeding
+                        -- whitespace has priority in order to act similarly to eg the built-in
+                        -- `ap`.
+                        include_surrounding_whitespace = true,
+                    },
+                },
+            }
+
         end
     }
-    use { "akinsho/org-bullets.nvim", config = function()
-        require("org-bullets").setup {
-            symbols = { "◉", "○", "✸", "✿" }
-        }
-    end
+    use {
+        "nvim-treesitter/nvim-treesitter-context",
+        requires = { 'nvim-treesitter/nvim-treesitter', opt = false },
+        config = function()
+            require 'treesitter-context'.setup {}
+        end
     }
     use 'andymass/vim-matchup'
     use 'tpope/vim-surround'
@@ -89,12 +147,20 @@ return require('packer').startup(function(use)
     }
     use {
         'kyazdani42/nvim-tree.lua',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = false },
         config = function()
             require 'nvim-tree'.setup {
                 git = { enable = false },
-                renderer = { indent_markers = { enable = true } }
+                renderer = { indent_markers = { enable = true },
+                    -- icons = {
+                    -- show = {
+                    -- file = true,
+                    -- folder_arrow = true,
+                    -- git = false,
+                    -- }
+                    -- }
+                },
             }
-
             vim.api.nvim_set_keymap('', '<M-f>', ':NvimTreeToggle<CR>', { silent = true })
         end,
         keys = "<M-f>"
@@ -113,8 +179,12 @@ return require('packer').startup(function(use)
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
     use {
+        'ThePrimeagen/harpoon',
+        requires = 'nvim-lua/plenary.nvim'
+    }
+    use {
         'mattn/emmet-vim',
-        ft = { 'html', 'vue' }
+        ft = { 'html', 'vue', 'xml' }
     }
     use {
         'ludovicchabant/vim-gutentags',
@@ -142,6 +212,15 @@ return require('packer').startup(function(use)
     use 'bluz71/vim-moonfly-colors'
     use 'folke/tokyonight.nvim'
     use 'romgrk/doom-one.vim'
+    use {
+        'rafamadriz/neon',
+        config = function()
+            vim.g.neon_style = "dark"
+            vim.g.neon_italic_keyword = true
+            vim.g.neon_italic_function = true
+            vim.g.neon_transparent = true
+        end
+    }
     use 'yunlingz/equinusocio-material.vim'
     use {
         'rose-pine/neovim',
@@ -158,9 +237,6 @@ return require('packer').startup(function(use)
         'wuelnerdotexe/vim-enfocado',
         config = function()
             vim.g.enfocado_style = 'neon'
-            -- Load colorscheme after options
-            -- vim.cmd('autocmd VimEnter * ++nested colorscheme enfocado')
-            -- vim.cmd('colorscheme enfocado')
         end,
     }
     use({
@@ -168,13 +244,26 @@ return require('packer').startup(function(use)
         as = "catppuccin",
         config = function()
             require("catppuccin").setup {
-                transparent_background = true,
-                nvimtree = {
+                compile = {
                     enabled = true,
-                    transparent_panel = true
-                }
+                    path = vim.fn.stdpath("cache") .. "/catppuccin",
+                },
+                transparent_background = true,
+                term_colors = false,
+                integrations = {
+                    treesitter = true,
+                    gitgutter = true,
+                    cmp = true,
+                    native_lsp = {
+                        enabled = true
+                    },
+                    nvimtree = {
+                        enabled = true,
+                        transparent_panel = true
+                    }
+                },
             }
-            -- vim.cmd [[colorscheme catppuccin]]
+            vim.cmd [[colorscheme catppuccin]]
         end
     })
     use 'ackyshake/Spacegray.vim'

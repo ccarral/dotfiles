@@ -1,4 +1,3 @@
--- local nvim_lsp = require('lspconfig')
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 -- vim.lsp.set_log_level("debug")
@@ -43,11 +42,7 @@ local global_opts = {
 
 local rust_opts = {
     tools = {
-        -- rust-tools options
-        autoSetHints = true,
-        hover_with_actions = true,
         inlay_hints = {
-            only_current_line = false,
             show_parameter_hints = false,
         },
     },
@@ -57,7 +52,12 @@ local rust_opts = {
     server = global_opts,
 }
 
-local servers = { 'sumneko_lua', 'tsserver', 'pyright', 'clangd', 'rust_analyzer', 'volar', 'jdtls', 'vimls', 'csharp_ls' }
+-- local servers = { 'sumneko_lua', 'tsserver', 'pyright', 'clangd', 'rust_analyzer', 'volar', 'jdtls', 'vimls', 'csharp_ls',
+-- 'texlab', 'sumneko_lua', 'lemminx' }
+
+local servers = { 'sumneko_lua', 'tsserver', 'pylsp', 'clangd', 'rust_analyzer', 'volar', 'jdtls', 'vimls',
+    'csharp_ls',
+    'texlab', 'sumneko_lua', 'lemminx' }
 
 require("nvim-lsp-installer").setup({
     ensure_installed = servers
