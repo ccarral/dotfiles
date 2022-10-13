@@ -152,6 +152,12 @@ return require('packer').startup(function(use)
             require 'nvim-tree'.setup {
                 git = { enable = false },
                 renderer = { indent_markers = { enable = true },
+                    actions = {
+                        change_dir = {
+                            enable = false,
+                        },
+                    },
+
                     -- icons = {
                     -- show = {
                     -- file = true,
@@ -167,7 +173,13 @@ return require('packer').startup(function(use)
     }
     use 'neovim/nvim-lspconfig'
     use 'weilbith/nvim-code-action-menu'
-    use 'williamboman/nvim-lsp-installer'
+    use {
+        "williamboman/mason.nvim",
+        config = function()
+            require("mason").setup()
+        end
+    }
+    use "williamboman/mason-lspconfig.nvim"
     use {
         'simrat39/rust-tools.nvim',
     }

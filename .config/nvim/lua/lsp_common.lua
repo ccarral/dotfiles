@@ -27,6 +27,7 @@ M.on_attach = function(client, bufnr)
     buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
     vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
 
+
     local signs = { Error = " ", Warn = " ", Hint = "", Info = "" }
 
     for type, icon in pairs(signs) do
@@ -40,10 +41,10 @@ M.on_attach = function(client, bufnr)
         }
     })
 
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { link = "DiagnosticError", undercurl = false, underline = false })
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { link = "DiagnosticWarn", undercurl = false, underline = false })
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { link = "DiagnosticInfo", undercurl = false, underline = false })
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { link = "DiagnosticHint", undercurl = false, underline = false })
+    vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { link = "DiagnosticError", undercurl = false, underline = false , italic = false, bold=false, default =false})
+    vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { link = "DiagnosticWarn", undercurl = false, underline = false , italic = false, bold=false, default = false})
+    vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { link = "DiagnosticInfo", undercurl = false, underline = false , italic = false, bold=false, default = false})
+    vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { link = "DiagnosticHint", undercurl = false, underline = false , italic = false, bold=false, default = false})
 
     vim.g.code_action_menu_show_details = false
     vim.g.code_action_menu_show_diff = false
