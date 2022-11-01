@@ -1,9 +1,15 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-    packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
-        install_path })
+local ensure_packer = function()
+    local fn = vim.fn
+    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+    if fn.empty(fn.glob(install_path)) > 0 then
+        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+        vim.cmd [[packadd packer.nvim]]
+        return true
+    end
+    return false
 end
+
+local packer_bootstrap = ensure_packer()
 
 require("packer").init {
     auto_reload_compiled = true
@@ -32,6 +38,8 @@ return require('packer').startup(function(use)
     -- require("transparent").setup {}
     -- end
     -- }
+
+    use 'jamestthompson3/nvim-remote-containers'
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = false },
@@ -151,12 +159,12 @@ return require('packer').startup(function(use)
         config = function()
             require 'nvim-tree'.setup {
                 git = { enable = false },
-                renderer = { indent_markers = { enable = true },
-                    actions = {
-                        change_dir = {
-                            enable = false,
-                        },
+                actions = {
+                    change_dir = {
+                        enable = false,
                     },
+                },
+                renderer = { indent_markers = { enable = true },
 
                     -- icons = {
                     -- show = {
