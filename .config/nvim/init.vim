@@ -165,7 +165,7 @@ if !exists("g:gutentags_project_info")
 endif
 let g:gutentags_cache_dir=$HOME.'/.tags'
 call add(g:gutentags_project_info, {'type': 'rust', 'file': 'Cargo.toml'})
-let g:gutentags_ctags_executable_rust = $HOME.'/.vim/shims/rusttags.sh'
+let g:gutentags_ctags_executable_rust = $HOME.'/.config/nvim/shims/rusttags.sh'
 
 "================== recognize header files as C ============
 augroup project
