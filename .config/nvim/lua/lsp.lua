@@ -52,17 +52,12 @@ local rust_opts = {
     server = global_opts,
 }
 
--- local servers = { 'sumneko_lua', 'tsserver', 'pyright', 'clangd', 'rust_analyzer', 'volar', 'jdtls', 'vimls', 'csharp_ls',
--- 'texlab', 'sumneko_lua', 'lemminx' }
-
--- local servers = { 'efm', 'sumneko_lua', 'tsserver', 'pylsp', 'clangd', 'rust_analyzer', 'volar', 'jdtls', 'vimls',
-local servers = { 'sumneko_lua', 'tsserver', 'pylsp', 'clangd', 'rust_analyzer', 'volar', 'jdtls', 'vimls',
-    'csharp_ls',
-    'texlab', 'sumneko_lua', 'lemminx' }
-
-require("mason-lspconfig").setup({
-    ensure_installed = servers
-})
+local servers = {
+    'tsserver', 'pylsp',
+    'clangd', 'rust_analyzer', 'volar',
+    'jdtls', 'vimls', 'csharp_ls', 'texlab',
+    'lua_ls', 'lemminx', "cssls"
+}
 
 
 for _, lsp in pairs(servers) do
