@@ -293,7 +293,6 @@ return require('packer').startup(function(use)
             vim.cmd [[colorscheme catppuccin]]
         end
     })
-    use 'ackyshake/Spacegray.vim'
     use 'ccarral/vim-code-dark'
     use 'joshdick/onedark.vim'
     use 'scrooloose/nerdcommenter'
