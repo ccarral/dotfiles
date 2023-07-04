@@ -55,9 +55,15 @@ local rust_opts = {
 local servers = {
     'tsserver', 'pylsp',
     'clangd', 'rust_analyzer', 'volar',
-    'jdtls', 'vimls', 'csharp_ls', 'texlab',
+    'jdtls', 'vimls', 'texlab',
     'lua_ls', 'lemminx', "cssls"
 }
+
+
+require("mason").setup()
+require("mason-lspconfig").setup({
+    ensure_installed = servers
+})
 
 
 for _, lsp in pairs(servers) do

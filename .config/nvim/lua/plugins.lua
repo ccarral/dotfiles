@@ -179,15 +179,22 @@ return require('packer').startup(function(use)
         end,
         keys = "<M-f>"
     }
-    use 'neovim/nvim-lspconfig'
+    use {
+        'neovim/nvim-lspconfig',
+        requires = { "williamboman/mason-lspconfig.nvim", opt = false },
+    }
     use 'weilbith/nvim-code-action-menu'
     use {
         "williamboman/mason.nvim",
-        config = function()
-            require("mason").setup()
-        end
+        run = ":MasonUpdate"
     }
-    use "williamboman/mason-lspconfig.nvim"
+    use {
+        "williamboman/mason-lspconfig.nvim",
+        requires = { "williamboman/mason.nvim", opt = false },
+        config = function()
+            require("mason-lspconfig").setup()
+        end,
+    }
     use {
         'simrat39/rust-tools.nvim',
     }
