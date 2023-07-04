@@ -3,6 +3,8 @@
 "------------- ------------
 set conceallevel=3
 
+" Disable mouse
+set mouse=
 
 "   Line Nr
 set relativenumber
@@ -26,7 +28,7 @@ set scrolloff=3
 set nrformats-=octal
 " set textwidth=74
 
-set signcolumn=number
+set signcolumn=yes:2
 set guicursor=
 
 tnoremap <Esc><Esc> <C-\><C-n>
@@ -186,22 +188,22 @@ let g:startify_files_number = 0
 let g:startify_bookmarks = [{'v':'~/.config/nvim/init.vim'}]
 let g:startify_lists = [{'type': 'bookmarks','header': ['']}, { 'type': 'sessions','header': ['sesiones']},]
 let g:startify_fortune_use_unicode = 1
-let g:startify_padding_left = 70 
+let g:startify_padding_left = 55 
 let g:startify_files_number = 4
 
-" let header_ascii_art_VIM = [
-            " \'                ',
-            " \'                ',
-            " \'                ',
-            " \'                ',
-            " \'                ',
-            " \'                ',
-            " \'                ',
-            " \'                ',
-            " \'┏┓╻┏━╸┏━┓╻ ╻╻┏┳┓',
-            " \'┃┗┫┣╸ ┃ ┃┃┏┛┃┃┃┃',
-            " \'╹ ╹┗━╸┗━┛┗┛ ╹╹ ╹',
-            " \'                ']
+let header_ascii_art_VIM = [
+            \'                ',
+            \'                ',
+            \'                ',
+            \'                ',
+            \'                ',
+            \'                ',
+            \'                ',
+            \'                ',
+            \'┏┓╻┏━╸┏━┓╻ ╻╻┏┳┓',
+            \'┃┗┫┣╸ ┃ ┃┃┏┛┃┃┃┃',
+            \'╹ ╹┗━╸┗━┛┗┛ ╹╹ ╹',
+            \'                ']
 
 " let header_ascii_art_VIM = [
             " \" _____________________" ,
@@ -225,21 +227,21 @@ let g:startify_files_number = 4
             " \'             ///.----..>        \             _ -~             `.  ^-`  ^-_',
             " \'               ///-._ _ _ _ _ _ _}^ - - - - ~                     ~-- ,.-~',
             " \'                                                                          ',]
-let header_ascii_art_VIM = [
-            \'                                                ',
-            \'                                                ',
-            \'                                                ',
-            \'                                                ',
-            \'                                                ',
-            \'                                                ',
-            \'                                                ',
-            \'                                                ',
-            \'                                                ',
-            \'                                                ',
-            \'┌──────┐┌──────┐┌──────┐┌      ┐┌──────┐┌───┐──┐',
-            \'│      ││      ││      ││      │    │   │      │',
-            \'│      ││──────┘│      │└──┐   │    │   │      │',
-            \'└     ─┘└──────┘└──────┘   └───┘└───└──┘└      ┘']
+" let header_ascii_art_VIM = [
+            " \'                                                ',
+            " \'                                                ',
+            " \'                                                ',
+            " \'                                                ',
+            " \'                                                ',
+            " \'                                                ',
+            " \'                                                ',
+            " \'                                                ',
+            " \'                                                ',
+            " \'                                                ',
+            " \'┌──────┐┌──────┐┌──────┐┌      ┐┌──────┐┌───┐──┐',
+            " \'│      ││      ││      ││      │    │   │      │',
+            " \'│      ││──────┘│      │└──┐   │    │   │      │',
+            " \'└     ─┘└──────┘└──────┘   └───┘└───└──┘└      ┘']
 
 let g:startify_custom_header = startify#center(header_ascii_art_VIM)
 "===========================================================
@@ -249,4 +251,15 @@ function Fecha()
 endfunction 
 
 command! Fecha call Fecha()
+
+function DisableAutoformat()
+    set eventignore+=BufWritePre
+endfunction
+
+function EnableAutoformat()
+    set eventignore=''
+endfunction
+
+command! DisableAutoformat call DisableAutoformat()
+command! EnableAutoformat call EnableAutoformat()
 
