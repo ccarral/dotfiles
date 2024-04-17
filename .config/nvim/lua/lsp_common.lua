@@ -32,7 +32,7 @@ M.on_attach = function(client, bufnr)
 
     for type, icon in pairs(signs) do
         local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+        vim.fn.sign_define(hl, { text = icon, texthl = hl })
     end
 
     vim.diagnostic.config({
@@ -41,18 +41,26 @@ M.on_attach = function(client, bufnr)
         }
     })
 
+    local yellow = "#f9e2af"
+    local red = "#f38ba8"
+    local grey = "#ababab"
+
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineError",
-        { link = "DiagnosticError", undercurl = false, underline = false, italic = false, bold = false, default = false })
+        { undercurl = true, sp = red })
+    vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultError",
+        { undercurl = true, sp = red })
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn",
-        { link = "DiagnosticWarn", undercurl = false, underline = false, italic = false, bold = false, default = false })
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo",
-        { link = "DiagnosticInfo", undercurl = false, underline = false, italic = false, bold = false, default = false })
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint",
-        { link = "DiagnosticHint", undercurl = false, underline = false, italic = false, bold = false, default = false })
+        { sp = yellow })
+    vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultWarning", { sp = yellow })
+    vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultHint", { sp = grey })
+    -- vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo",
+    -- vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo",
+    -- { link = "DiagnosticInfo", undercurl = false, underline = false, italic = false, bold = false, default = false })
+    -- vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint",
+    -- { link = "DiagnosticHint", undercurl = false, underline = false, italic = false, bold = false, default = false })
 
     vim.g.code_action_menu_show_details = false
     vim.g.code_action_menu_show_diff = false
-
 end
 
 return M
