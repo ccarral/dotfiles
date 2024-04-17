@@ -26,10 +26,11 @@ return require('packer').startup(function(use)
     use 'editorconfig/editorconfig-vim'
     use { "lukas-reineke/indent-blankline.nvim",
         config = function()
-            require("indent_blankline").setup {
-                show_end_of_line = false,
-                buftype_exclude = { "terminal" },
-                filetype_exclude = { "startify" },
+            require("ibl").setup {
+                exclude = {
+                    filetypes = { "startify" },
+                    buftypes = { "terminal" }
+                },
             }
         end
     }
@@ -59,7 +60,6 @@ return require('packer').startup(function(use)
                     }
                 },
             }
-
         end,
     }
     use {
@@ -114,7 +114,7 @@ return require('packer').startup(function(use)
                         -- You can choose the select mode (default is charwise 'v')
                         selection_modes = {
                             ['@parameter.outer'] = 'v', -- charwise
-                            ['@function.outer'] = 'V', -- linewise
+                            ['@function.outer'] = 'V',  -- linewise
                             ['@class.outer'] = '<c-v>', -- blockwise
                         },
                         -- If you set this to `true` (default is `false`) then any textobject is
@@ -125,7 +125,6 @@ return require('packer').startup(function(use)
                     },
                 },
             }
-
         end
     }
     use {
@@ -164,7 +163,8 @@ return require('packer').startup(function(use)
                         enable = false,
                     },
                 },
-                renderer = { indent_markers = { enable = true },
+                renderer = {
+                    indent_markers = { enable = true },
 
                     -- icons = {
                     -- show = {
@@ -235,37 +235,8 @@ return require('packer').startup(function(use)
     }
 
     -- Colorschemes
-    use 'bluz71/vim-nightfly-guicolors'
-    use 'bluz71/vim-moonfly-colors'
     use 'folke/tokyonight.nvim'
-    use 'romgrk/doom-one.vim'
-    use {
-        'rafamadriz/neon',
-        config = function()
-            vim.g.neon_style = "dark"
-            vim.g.neon_italic_keyword = true
-            vim.g.neon_italic_function = true
-            vim.g.neon_transparent = true
-        end
-    }
-    use 'yunlingz/equinusocio-material.vim'
-    use {
-        'rose-pine/neovim',
-        as = 'rose-pine',
-        config = function()
-            -- Options (see available options below)
-            vim.g.rose_pine_variant = 'moon'
-
-            -- Load colorscheme after options
-            -- vim.cmd('colorscheme rose-pine')
-        end
-    }
-    use {
-        'wuelnerdotexe/vim-enfocado',
-        config = function()
-            vim.g.enfocado_style = 'neon'
-        end,
-    }
+    use 'Abstract-IDE/Abstract-cs'
     use({
         "catppuccin/nvim",
         as = "catppuccin",
@@ -290,11 +261,8 @@ return require('packer').startup(function(use)
                     }
                 },
             }
-            vim.cmd [[colorscheme catppuccin]]
         end
     })
-    use 'ccarral/vim-code-dark'
-    use 'joshdick/onedark.vim'
     use 'scrooloose/nerdcommenter'
 
     if packer_bootstrap then
