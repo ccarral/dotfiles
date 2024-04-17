@@ -6,6 +6,8 @@ set conceallevel=3
 " Disable mouse
 set mouse=
 
+set ignorecase
+
 "   Line Nr
 set relativenumber
 set number
@@ -134,12 +136,7 @@ let g:NERDCompactSexyComs=1
 
 lua require('plugins')
 "===================== colorschemes ========================
-hi LspDiagnosticsDefaultError ctermfg=Red guifg=#ff4545
-hi LspDiagnosticsDefaultWarning ctermfg=Yellow guifg=#ffc86b   
-hi LspDiagnosticsDefaultHint ctermfg=Red guifg=#ababab
 hi Comment cterm=italic
-let g:nightflyTransparent = 1
-let g:moonflyTransparent = 1
 let g:tokyonight_style = 'night'
 let g:tokyonight_transparent = 1 
 let g:tokyonight_transparent_sidebar = 1 
@@ -263,3 +260,4 @@ endfunction
 command! DisableAutoformat call DisableAutoformat()
 command! EnableAutoformat call EnableAutoformat()
 
+DisableAutoformat
