@@ -7,79 +7,82 @@ local common = require("lsp_common")
 
 local on_attach = common.on_attach
 
-local global_opts = {
-    -- on_attach is a callback called when the language server attachs to the buffer
-    on_attach = on_attach,
-    settings = {
-        -- to enable rust-analyzer settings visit:
-        -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-        ["rust-analyzer"] = {
-            -- enable clippy on save
-            completion = {
-                postfix = {
-                    enable = false
-                }
-            },
-            checkOnSave = {
-                command = "clippy"
-            },
-            -- assist = {
-            -- importGranularity = "module",
-            -- importPrefix = "by_self",
-            -- },
-            -- cargo = {
-            -- loadOutDirsFromCheck = true
-            -- },
-            -- procMacro = {
-            -- enable = false
-            -- },
-            -- diagnostics = {
-            -- disabled = {"macro-error", "unresolved-proc-macro"}
-            -- },
-        }
-    }
-}
-
-local rust_opts = {
-    tools = {
-        inlay_hints = {
-            show_parameter_hints = false,
-        },
-    },
-    -- all the opts to send to nvim-lspconfig
-    -- these override the defaults set by rust-tools.nvim
-    -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
-    server = global_opts,
-}
-
 local servers = {
-    'tsserver', 'pylsp',
-    'clangd', 'rust_analyzer', 'volar',
-    'jdtls', 'vimls', 'texlab',
-    'lua_ls', 'lemminx', "cssls"
-}
+    tsserver = {},
+    pyright = {},
+    clangd = {},
+    rust_analyzer = {
+        settings = {
+            -- to enable rust-analyzer settings visit:
+            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+            ["rust-analyzer"] = {
+                -- enable clippy on save
+                completion = {
+                    postfix = {
+                        enable = false
+                    }
+                },
+                checkOnSave = {
+                    command = "clippy"
+                },
+            }
+        }
+    },
+    volar = { cmd = { "vls", "--stdio" }, init_options = { serverPath = "~/.npm/lib/node_modules/typescript/lib/tsserver.js" } },
+    jdtls = {},
+    vimls = {},
+    texlab = {},
+    lua_ls = {
+        on_init = function(client)
+            -- This is to enable completion for editing neovim files
+            local path = client.workspace_folders[1].name
+            if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+                return
+            end
 
+            client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+                runtime = {
+                    -- Tell the language server which version of Lua you're using
+                    -- (most likely LuaJIT in the case of Neovim)
+                    version = 'LuaJIT'
+                },
+                -- Make the server aware of Neovim runtime files
+                workspace = {
+                    checkThirdParty = false,
+                    library = {
+                        vim.env.VIMRUNTIME
+                        -- Depending on the usage, you might want to add additional paths here.
+                        -- "${3rd}/luv/library"
+                        -- "${3rd}/busted/library",
+                    }
+                    -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+                    -- library = vim.api.nvim_get_runtime_file("", true)
+                }
+            })
+        end,
+        settings = {
+            Lua = { hint = { enable = true } }
+        }
+    },
+    lemminx = {},
+    cssls = {},
+    ruby_lsp = {},
+    solargraph = {},
+}
 
 require("mason").setup()
-require("mason-lspconfig").setup({
-    ensure_installed = servers
-})
+require("mason-lspconfig").setup()
 
-
-for _, lsp in pairs(servers) do
-    if lsp == "rust_analyzer" then
-        require('rust-tools').setup(rust_opts)
-    elseif lsp == "volar" then
-        local volar_options = vim.deepcopy(global_opts)
-        volar_options["cmd"] = { "vls", "--stdio" }
-        volar_options["init_options"] = {
-            serverPath = "~/.npm/lib/node_modules/typescript/lib/tsserver.js"
-        }
-        require("lspconfig")[lsp].setup(volar_options)
-    else
-        require("lspconfig")[lsp].setup(global_opts)
-    end
+for server, config in pairs(servers) do
+    config.on_attach = on_attach
+    require('lspconfig')[server].setup(config)
 end
+
+
+
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 
 --Setup Completion
@@ -118,16 +121,3 @@ cmp.setup({
         { name = 'orgmode' },
     },
 })
-
--- local saga = require('lspsaga')
-
--- saga.init_lsp_saga()
-
--- saga.init_lsp_saga{
--- code_action_prompt = {
--- enable = true,
--- sign = true,
--- sign_priority = 20,
--- virtual_text = true,
--- },
--- }

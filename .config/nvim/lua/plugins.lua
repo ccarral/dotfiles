@@ -18,11 +18,6 @@ require("packer").init {
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-    use { 'lewis6991/impatient.nvim',
-        config = function()
-            require('impatient')
-        end
-    }
     use 'editorconfig/editorconfig-vim'
     use { "lukas-reineke/indent-blankline.nvim",
         config = function()
@@ -34,13 +29,6 @@ return require('packer').startup(function(use)
             }
         end
     }
-    -- use { 'xiyaowong/nvim-transparent',
-    -- config = function()
-    -- require("transparent").setup {}
-    -- end
-    -- }
-
-    use 'jamestthompson3/nvim-remote-containers'
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = false },
@@ -48,7 +36,7 @@ return require('packer').startup(function(use)
         config = function()
             require('lualine').setup {
                 options = {
-                    theme = require("transparent_lualine").theme(),
+                    theme = require("transparent_lualine_wildcharm").theme(),
                     section_separators = '',
                     component_separators = '|',
                     extensions = 'nvim-tree',
@@ -63,7 +51,11 @@ return require('packer').startup(function(use)
         end,
     }
     use {
-        'simrat39/symbols-outline.nvim',
+        'nvim-telescope/telescope.nvim', tag = '0.1.8',
+        requires = { { 'nvim-lua/plenary.nvim' } }
+    }
+    use {
+        'rockerBOO/symbols-outline.nvim',
         config = function()
             require('symbols-outline').setup {}
         end
@@ -165,14 +157,6 @@ return require('packer').startup(function(use)
                 },
                 renderer = {
                     indent_markers = { enable = true },
-
-                    -- icons = {
-                    -- show = {
-                    -- file = true,
-                    -- folder_arrow = true,
-                    -- git = false,
-                    -- }
-                    -- }
                 },
             }
             vim.api.nvim_set_keymap('', '<M-f>', ':NvimTreeToggle<CR>', { silent = true })
@@ -183,10 +167,15 @@ return require('packer').startup(function(use)
         'neovim/nvim-lspconfig',
         requires = { "williamboman/mason-lspconfig.nvim", opt = false },
     }
-    use 'weilbith/nvim-code-action-menu'
     use {
         "williamboman/mason.nvim",
         run = ":MasonUpdate"
+    }
+    use {
+        "aznhe21/actions-preview.nvim",
+        config = function()
+            vim.keymap.set({ "v", "n" }, "<leader>ac", require("actions-preview").code_actions)
+        end,
     }
     use {
         "williamboman/mason-lspconfig.nvim",
@@ -198,23 +187,42 @@ return require('packer').startup(function(use)
     use {
         'simrat39/rust-tools.nvim',
     }
+    use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-vsnip'
     use 'hrsh7th/vim-vsnip'
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
+    use 'rafamadriz/friendly-snippets'
     use {
         'ThePrimeagen/harpoon',
-        requires = 'nvim-lua/plenary.nvim'
+        requires = 'nvim-lua/plenary.nvim',
+        config = function()
+            vim.api.nvim_set_keymap('n', '<leader>ha', ':lua require("harpoon.mark").add_file()<CR>',
+                { noremap = true, silent = true })
+            vim.api.nvim_set_keymap('n', '<leader>hb', ':lua require("harpoon.ui").toggle_quick_menu()<CR>',
+                { noremap = true, silent = true })
+        end
     }
     use {
         'mattn/emmet-vim',
-        ft = { 'html', 'vue', 'xml' }
+        ft = { 'html', 'vue', 'xml', 'eruby', 'typescriptreact' },
+        setup = function()
+            vim.g.user_emmet_leader_key = ','
+        end
     }
     use {
         'ludovicchabant/vim-gutentags',
+        config = function()
+            if vim.g.gutentags_project_info == nil then
+                vim.g.gutentags_project_info = {}
+            end
+            vim.g.gutentags_cache_dir = vim.fn.expand('$HOME/.tags')
+            -- This needs to be done because table assignment in lua -> nvim is wacky
+            vim.cmd [[ call add(g:gutentags_project_info, {'type': 'rust', 'file': 'Cargo.toml'}) ]]
+            vim.g.gutentags_ctags_executable_rust = vim.fn.expand('$HOME/.config/nvim/shims/rusttags.sh')
+        end,
     }
     use { 'norcalli/nvim-colorizer.lua',
         config = function()
@@ -226,16 +234,11 @@ return require('packer').startup(function(use)
         "folke/todo-comments.nvim",
         requires = "nvim-lua/plenary.nvim",
         config = function()
-            require("todo-comments").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
+            require("todo-comments").setup {}
         end
     }
 
     -- Colorschemes
-    use 'folke/tokyonight.nvim'
     use 'Abstract-IDE/Abstract-cs'
     use({
         "catppuccin/nvim",
@@ -263,8 +266,14 @@ return require('packer').startup(function(use)
             }
         end
     })
-    use 'scrooloose/nerdcommenter'
 
+    use {
+        'scrooloose/nerdcommenter',
+        setup = function()
+            vim.g.NERDSpaceDelims = 1
+            vim.g.NERDCompactSexyComs = 1
+        end
+    }
     if packer_bootstrap then
         require('packer').sync()
     end

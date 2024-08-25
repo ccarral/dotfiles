@@ -110,16 +110,12 @@ nnoremap <Leader>f :find
 nnoremap <Leader>e :edit 
 
 "   Mapeos para cambiar de buffer
-nnoremap <C-w> <C-w><C-w>
+" nnoremap <C-w> <C-w><C-w>
 
 nnoremap <Leader>tn<CR> :tabnext<CR>
 nnoremap <Leader>tp<CR> :tabprev<CR>
 nnoremap <Leader>te :tabedit
 nnoremap <Leader>tb :tabs
-
-" Harpoon
-nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
-nnoremap <leader>hb :lua require("harpoon.ui").toggle_quick_menu()<CR>
 
 "   Autowrite & Autoread
 set autoread
@@ -129,21 +125,14 @@ set autowrite
 set termguicolors
 syntax enable
 
-"===================== NERDComment =========================
-let g:NERDSpaceDelims = 1
-let g:NERDCompactSexyComs=1
-"===========================================================
-
 lua require('plugins')
+set completeopt=menuone,noinsert,noselect
+
 "===================== colorschemes ========================
 hi Comment cterm=italic
-let g:tokyonight_style = 'night'
-let g:tokyonight_transparent = 1 
-let g:tokyonight_transparent_sidebar = 1 
-colorscheme catppuccin
+colorscheme wildcharm 
 
 "======================== nvim-lsp =============================
-set completeopt=menuone,noinsert,noselect
 lua require('lsp')
 "==============================================================
 
@@ -151,18 +140,6 @@ lua require('lsp')
 set noshowmode
 set laststatus=2
 "==========================================================
-
-"===================== emmet ========================
-let g:user_emmet_leader_key=','
-"====================================================
-
-"===================== gutentags ==========================
-if !exists("g:gutentags_project_info")
-  let g:gutentags_project_info = []
-endif
-let g:gutentags_cache_dir=$HOME.'/.tags'
-call add(g:gutentags_project_info, {'type': 'rust', 'file': 'Cargo.toml'})
-let g:gutentags_ctags_executable_rust = $HOME.'/.config/nvim/shims/rusttags.sh'
 
 "================== recognize header files as C ============
 augroup project
@@ -181,12 +158,9 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 let g:startify_change_to_dir = 0
 let g:startify_enable_special = 1
 let g:startify_session_autoload = 1
-let g:startify_files_number = 0
-let g:startify_bookmarks = [{'v':'~/.config/nvim/init.vim'}]
-let g:startify_lists = [{'type': 'bookmarks','header': ['']}, { 'type': 'sessions','header': ['sesiones']},]
+let g:startify_lists = []
 let g:startify_fortune_use_unicode = 1
 let g:startify_padding_left = 55 
-let g:startify_files_number = 4
 
 let header_ascii_art_VIM = [
             \'                ',
@@ -259,5 +233,3 @@ endfunction
 
 command! DisableAutoformat call DisableAutoformat()
 command! EnableAutoformat call EnableAutoformat()
-
-DisableAutoformat

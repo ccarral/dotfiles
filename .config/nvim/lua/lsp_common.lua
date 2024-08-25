@@ -3,8 +3,6 @@ local M = {}
 M.on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
     -- Mappings.
     local opts = { noremap = true, silent = true }
 
@@ -19,7 +17,6 @@ M.on_attach = function(client, bufnr)
     buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
     buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<leader>ac', '<cmd>CodeActionMenu<CR>', opts)
     buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
     buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
@@ -27,17 +24,16 @@ M.on_attach = function(client, bufnr)
     buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
     vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
 
-
-    local signs = { Error = " ", Warn = " ", Hint = "", Info = "" }
-
-    for type, icon in pairs(signs) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl })
-    end
-
     vim.diagnostic.config({
         virtual_text = {
             prefix = '●', -- Could be '●', '▎', 'x'
+        },
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = ' ',
+                [vim.diagnostic.severity.WARN] = ' ',
+                [vim.diagnostic.severity.INFO] = '',
+            }
         }
     })
 
@@ -47,17 +43,12 @@ M.on_attach = function(client, bufnr)
 
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineError",
         { undercurl = true, sp = red })
-    vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultError",
-        { undercurl = true, sp = red })
+    vim.api.nvim_set_hl(0, "DiagnosticSignError",
+        { fg = red, force = true })
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn",
-        { sp = yellow })
-    vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultWarning", { sp = yellow })
-    vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultHint", { sp = grey })
-    -- vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo",
-    -- vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo",
-    -- { link = "DiagnosticInfo", undercurl = false, underline = false, italic = false, bold = false, default = false })
-    -- vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint",
-    -- { link = "DiagnosticHint", undercurl = false, underline = false, italic = false, bold = false, default = false })
+        { fg = yellow })
+    vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = yellow })
+    vim.api.nvim_set_hl(0, "DiagnosticSignHint", { fg = grey })
 
     vim.g.code_action_menu_show_details = false
     vim.g.code_action_menu_show_diff = false
