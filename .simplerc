@@ -69,6 +69,10 @@ nnoremap <Leader>v :vsplit<CR>
 "   Unmap J deletion
 map J <NOP>
 
+nnoremap <Leader>f :find 
+nnoremap <Leader>e :edit 
+
+
 
 "Settings de status
 set laststatus=2
