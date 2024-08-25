@@ -7,9 +7,8 @@ export PATH="$HOME/.npm/bin/:$PATH"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-
-export FLYCTL_INSTALL="$HOME/.fly"
-export PATH="$FLYCTL_INSTALL/bin:$PATH"
+export BUNDLE_PATH="$HOME/.bundle"
+export GEM_HOME="$HOME/.gems" 
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
@@ -91,7 +90,7 @@ fi
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git jump rust dotenv docker)
-plugins=(git jump rust postgres docker)
+plugins=(git docker dotenv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -135,7 +134,7 @@ alias hiber="systemctl hibernate"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 alias serve="browser-sync start --server --files"
 alias svim="/usr/bin/nvim --noplugin -u ~/.simplerc"
-alias get_idf=". ~/Proyectos/stm32/micropython/ports/esp32/esp-idf/export.sh"
+alias get_idf=". ~/esp/esp-idf/export.sh"
 
 # fortune | cowsay
 
@@ -155,10 +154,3 @@ export NVM_DIR="$HOME/.nvm"
 fpath=(/usr/share/vagrant/gems/gems/vagrant-2.2.19/contrib/zsh $fpath)
 compinit
 # <<<<  Vagrant command completion (end)
-
-
-# Vauxoo
-
-VAUXOO="${HOME}/Vauxoo"
-DOCKER_PATH="$VAUXOO/t2d"
-alias t2d="travisfile2dockerfile --root-path=${DOCKER_PATH} --run-extra-args='-it -e LANG=en_US.UTF-8' --add-remote=vauxoo"
