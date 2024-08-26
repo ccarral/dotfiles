@@ -125,7 +125,6 @@ set autowrite
 set termguicolors
 syntax enable
 
-lua require('plugins')
 set completeopt=menuone,noinsert,noselect
 
 "===================== colorschemes ========================
@@ -133,6 +132,8 @@ hi Comment cterm=italic
 colorscheme wildcharm 
 
 "======================== nvim-lsp =============================
+lua require('bootstrap')
+lua require('lazy').setup("plugins")
 lua require('lsp')
 "==============================================================
 

@@ -1,25 +1,7 @@
-local ensure_packer = function()
-    local fn = vim.fn
-    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-    if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-        vim.cmd [[packadd packer.nvim]]
-        return true
-    end
-    return false
-end
-
-local packer_bootstrap = ensure_packer()
-
-require("packer").init {
-    auto_reload_compiled = true
-}
-
-return require('packer').startup(function(use)
-    -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
-    use 'editorconfig/editorconfig-vim'
-    use { "lukas-reineke/indent-blankline.nvim",
+return {
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
         config = function()
             require("ibl").setup {
                 exclude = {
@@ -28,11 +10,11 @@ return require('packer').startup(function(use)
                 },
             }
         end
-    }
-    use {
+    },
+    {
         'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = false },
-        opt = false,
+        dependencies = { 'kyazdani42/nvim-web-devicons' },
+        lazy = false,
         config = function()
             require('lualine').setup {
                 options = {
@@ -49,24 +31,23 @@ return require('packer').startup(function(use)
                 },
             }
         end,
-    }
-    use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.8',
-        requires = { { 'nvim-lua/plenary.nvim' } }
-    }
-    use {
+    },
+    {
+        'nvim-telescope/telescope.nvim',
+        version = '0.1.8',
+        dependencies = 'nvim-lua/plenary.nvim'
+    },
+    {
         'rockerBOO/symbols-outline.nvim',
-        config = function()
-            require('symbols-outline').setup {}
-        end
-    }
-    use {
+        config = true,
+        cmd = "SymbolsOutline"
+
+    },
+    {
         'windwp/nvim-autopairs',
-        config = function()
-            require('nvim-autopairs').setup {}
-        end
-    }
-    use {
+        config = true
+    },
+    {
         'nvim-treesitter/nvim-treesitter',
         config = function()
             require 'nvim-treesitter.configs'.setup {
@@ -81,12 +62,13 @@ return require('packer').startup(function(use)
                     additional_vim_regex_highlighting = false,
                 },
             }
-        end
-    }
-
-    use {
+        end,
+        build = ":TSUpdate",
+        event = "VeryLazy"
+    },
+    {
         'nvim-treesitter/nvim-treesitter-textobjects',
-        requires = { 'nvim-treesitter/nvim-treesitter', opt = false },
+        dependencies = { 'nvim-treesitter/nvim-treesitter', opt = false },
         config = function()
             require 'nvim-treesitter.configs'.setup {
                 textobjects = {
@@ -97,7 +79,7 @@ return require('packer').startup(function(use)
                         lookahead = true,
 
                         keymaps = {
-                            -- You can use the capture groups defined in textobjects.scm
+                            -- You can  the capture groups defined in textobjects.scm
                             ["af"] = "@function.outer",
                             ["if"] = "@function.inner",
                             ["ac"] = "@class.outer",
@@ -118,35 +100,33 @@ return require('packer').startup(function(use)
                 },
             }
         end
-    }
-    use {
+    },
+    {
         "nvim-treesitter/nvim-treesitter-context",
-        requires = { 'nvim-treesitter/nvim-treesitter', opt = false },
-        config = function()
-            require 'treesitter-context'.setup {}
-        end
-    }
-    use 'andymass/vim-matchup'
-    use 'tpope/vim-surround'
-    use 'tpope/vim-fugitive'
-    use 'airblade/vim-gitgutter'
-    use 'tpope/vim-obsession'
-    use 'mhinz/vim-startify'
-    use 'tpope/vim-unimpaired'
-    use 'tpope/vim-repeat'
-    use 'tpope/vim-eunuch'
-    use {
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        config = true
+    },
+    'andymass/vim-matchup',
+    'tpope/vim-surround',
+    'tpope/vim-fugitive',
+    'airblade/vim-gitgutter',
+    'tpope/vim-obsession',
+    'mhinz/vim-startify',
+    'tpope/vim-unimpaired',
+    'tpope/vim-repeat',
+    'tpope/vim-eunuch',
+    {
         'cespare/vim-toml',
         ft = { 'toml' }
-    }
-    use {
+    },
+    {
         'kkoomen/vim-doge',
-        run = ':call doge#install()',
+        build = ':call doge#install()',
         cmd = "DogeGenerate"
-    }
-    use {
+    },
+    {
         'kyazdani42/nvim-tree.lua',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = false },
+        dependencies = { 'kyazdani42/nvim-web-devicons', opt = false },
         config = function()
             require 'nvim-tree'.setup {
                 git = { enable = false },
@@ -162,85 +142,79 @@ return require('packer').startup(function(use)
             vim.api.nvim_set_keymap('', '<M-f>', ':NvimTreeToggle<CR>', { silent = true })
         end,
         keys = "<M-f>"
-    }
-    use {
+    },
+    {
         'neovim/nvim-lspconfig',
-        requires = { "williamboman/mason-lspconfig.nvim", opt = false },
-    }
-    use {
-        "williamboman/mason.nvim",
-        run = ":MasonUpdate"
-    }
-    use {
+        dependencies = { "williamboman/mason-lspconfig.nvim", opt = false },
+    },
+    "williamboman/mason.nvim",
+    {
         "aznhe21/actions-preview.nvim",
         config = function()
             vim.keymap.set({ "v", "n" }, "<leader>ac", require("actions-preview").code_actions)
         end,
-    }
-    use {
+    },
+    {
         "williamboman/mason-lspconfig.nvim",
-        requires = { "williamboman/mason.nvim", opt = false },
+        dependencies = { "williamboman/mason.nvim", opt = false },
         config = function()
             require("mason-lspconfig").setup()
         end,
-    }
-    use {
+    },
+    {
         'simrat39/rust-tools.nvim',
-    }
-    use 'hrsh7th/nvim-cmp'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-vsnip'
-    use 'hrsh7th/vim-vsnip'
-    use 'nvim-lua/popup.nvim'
-    use 'nvim-lua/plenary.nvim'
-    use 'rafamadriz/friendly-snippets'
-    use {
+    },
+    'hrsh7th/nvim-cmp',
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-vsnip',
+    'hrsh7th/vim-vsnip',
+    'nvim-lua/popup.nvim',
+    'nvim-lua/plenary.nvim',
+    'rafamadriz/friendly-snippets',
+    {
         'ThePrimeagen/harpoon',
-        requires = 'nvim-lua/plenary.nvim',
+        dependencies = 'nvim-lua/plenary.nvim',
         config = function()
             vim.api.nvim_set_keymap('n', '<leader>ha', ':lua require("harpoon.mark").add_file()<CR>',
                 { noremap = true, silent = true })
             vim.api.nvim_set_keymap('n', '<leader>hb', ':lua require("harpoon.ui").toggle_quick_menu()<CR>',
                 { noremap = true, silent = true })
         end
-    }
-    use {
+    },
+    {
         'mattn/emmet-vim',
         ft = { 'html', 'vue', 'xml', 'eruby', 'typescriptreact' },
         setup = function()
-            vim.g.user_emmet_leader_key = ','
+            vim.g.r_emmet_leader_key = ','
         end
-    }
-    use {
+    },
+    {
         'ludovicchabant/vim-gutentags',
         config = function()
             if vim.g.gutentags_project_info == nil then
                 vim.g.gutentags_project_info = {}
             end
             vim.g.gutentags_cache_dir = vim.fn.expand('$HOME/.tags')
-            -- This needs to be done because table assignment in lua -> nvim is wacky
+            -- This needs to be done beca table assignment in lua -> nvim is wacky
             vim.cmd [[ call add(g:gutentags_project_info, {'type': 'rust', 'file': 'Cargo.toml'}) ]]
             vim.g.gutentags_ctags_executable_rust = vim.fn.expand('$HOME/.config/nvim/shims/rusttags.sh')
         end,
-    }
-    use { 'norcalli/nvim-colorizer.lua',
-        config = function()
-            require 'colorizer'.setup {}
-        end,
-    }
+    },
+    {
+        'norcalli/nvim-colorizer.lua',
+        cmd = "ColorizerAttachToBuffer"
+    },
 
-    use {
+    {
         "folke/todo-comments.nvim",
-        requires = "nvim-lua/plenary.nvim",
-        config = function()
-            require("todo-comments").setup {}
-        end
-    }
+        dependencies = "nvim-lua/plenary.nvim",
+        config = true
+    },
 
     -- Colorschemes
-    use 'Abstract-IDE/Abstract-cs'
-    use({
+    'Abstract-IDE/Abstract-cs',
+    {
         "catppuccin/nvim",
         as = "catppuccin",
         config = function()
@@ -265,16 +239,12 @@ return require('packer').startup(function(use)
                 },
             }
         end
-    })
-
-    use {
+    },
+    {
         'scrooloose/nerdcommenter',
         setup = function()
             vim.g.NERDSpaceDelims = 1
             vim.g.NERDCompactSexyComs = 1
         end
-    }
-    if packer_bootstrap then
-        require('packer').sync()
-    end
-end)
+    },
+}
