@@ -232,5 +232,15 @@ function EnableAutoformat()
     set eventignore=''
 endfunction
 
+function EnableHints()
+    lua vim.lsp.inlay_hint.enable(true)
+endfunction
+
+function DisableHints()
+    lua vim.lsp.inlay_hint.enable(false)
+endfunction
+
 command! DisableAutoformat call DisableAutoformat()
 command! EnableAutoformat call EnableAutoformat()
+command! EnableHints call EnableHints()
+command! DisableHints call DisableHints()
