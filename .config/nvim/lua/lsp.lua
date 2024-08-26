@@ -73,17 +73,13 @@ local servers = {
 require("mason").setup()
 require("mason-lspconfig").setup()
 
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 for server, config in pairs(servers) do
     config.on_attach = on_attach
+    config.capabilities = capabilities
     require('lspconfig')[server].setup(config)
 end
-
-
-
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
 
 --Setup Completion
 --See https://github.com/hrsh7th/nvim-cmp#basic-configuration
@@ -93,23 +89,14 @@ cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done({ map_char = { tex = 
 
 cmp.setup({
     -- Enable LSP snippets
-    snippet = {
-        expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
-        end,
-    },
     mapping = {
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
-        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+        ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.close(),
-        ['<C-l>'] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Insert,
-            select = true,
-        })
-
+        ['<C-l>'] = cmp.mapping.confirm()
     },
 
     -- Installed sources
@@ -118,6 +105,5 @@ cmp.setup({
         { name = 'vsnip' },
         { name = 'path' },
         { name = 'buffer' },
-        { name = 'orgmode' },
     },
 })
