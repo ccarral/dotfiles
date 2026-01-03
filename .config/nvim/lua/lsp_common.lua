@@ -41,14 +41,14 @@ M.on_attach = function(client, bufnr)
     local red = "#f38ba8"
     local grey = "#ababab"
 
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineError",
-        { undercurl = true, sp = red })
-    vim.api.nvim_set_hl(0, "DiagnosticSignError",
-        { fg = red, force = true })
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn",
-        { fg = yellow })
-    vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = yellow })
-    vim.api.nvim_set_hl(0, "DiagnosticSignHint", { fg = grey })
+    -- vim.api.nvim_set_hl(0, "DiagnosticUnderlineError",
+    -- { undercurl = true, sp = red })
+    -- vim.api.nvim_set_hl(0, "DiagnosticSignError",
+    -- { fg = red, force = true })
+    -- vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn",
+    -- { fg = yellow })
+    -- vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = yellow })
+    -- vim.api.nvim_set_hl(0, "DiagnosticSignHint", { fg = grey })
 
     vim.g.code_action_menu_show_details = false
     vim.g.code_action_menu_show_diff = false

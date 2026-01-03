@@ -2,57 +2,47 @@ return {
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
-        config = function()
-            require("ibl").setup {
-                exclude = {
-                    filetypes = { "startify" },
-                    buftypes = { "terminal" }
-                },
-            }
-        end
+        opts = {
+            exclude = {
+                filetypes = { "startify" },
+                buftypes = { "terminal" }
+            },
+        },
     },
     {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'kyazdani42/nvim-web-devicons' },
         lazy = false,
-        config = function()
-            require('lualine').setup {
-                options = {
-                    theme = require("transparent_lualine_wildcharm").theme(),
-                    section_separators = '',
-                    component_separators = '|',
-                    extensions = 'nvim-tree',
-                    icons_enabled = false,
-                    sections = {
-                        lualine_b = {
-                            symbols = { error = ' ', warn = ' ', info = '', hint = '' }
-                        }
+        opts = {
+            options = {
+                theme = require("transparent_lualine").theme(),
+                section_separators = '',
+                component_separators = '|',
+                extensions = 'nvim-tree',
+                icons_enabled = false,
+                sections = {
+                    lualine_b = {
+                        symbols = { error = ' ', warn = ' ', info = '', hint = '' }
                     }
-                },
+                }
             }
-        end,
-    },
-    {
-        'nvim-telescope/telescope.nvim',
-        version = '0.1.8',
-        dependencies = 'nvim-lua/plenary.nvim'
+        },
     },
     {
         'rockerBOO/symbols-outline.nvim',
-        config = true,
+        opts = {},
         cmd = "SymbolsOutline"
 
     },
     {
         'windwp/nvim-autopairs',
-        config = true
+        opts = {}
     },
     'andymass/vim-matchup',
     'tpope/vim-surround',
     'tpope/vim-fugitive',
     'airblade/vim-gitgutter',
     'tpope/vim-obsession',
-    'mhinz/vim-startify',
     'tpope/vim-unimpaired',
     'tpope/vim-repeat',
     'tpope/vim-eunuch',
@@ -66,28 +56,9 @@ return {
         cmd = "DogeGenerate"
     },
     {
-        'kyazdani42/nvim-tree.lua',
-        dependencies = { 'kyazdani42/nvim-web-devicons', opt = false },
-        config = function()
-            require 'nvim-tree'.setup {
-                git = { enable = false },
-                actions = {
-                    change_dir = {
-                        enable = false,
-                    },
-                },
-                renderer = {
-                    indent_markers = { enable = true },
-                },
-            }
-            vim.api.nvim_set_keymap('', '<M-f>', ':NvimTreeToggle<CR>', { silent = true })
-        end,
-        keys = "<M-f>"
-    },
-    {
         'ThePrimeagen/harpoon',
         dependencies = 'nvim-lua/plenary.nvim',
-        config = function()
+        init = function()
             vim.api.nvim_set_keymap('n', '<leader>ha', ':lua require("harpoon.mark").add_file()<CR>',
                 { noremap = true, silent = true })
             vim.api.nvim_set_keymap('n', '<leader>hb', ':lua require("harpoon.ui").toggle_quick_menu()<CR>',
@@ -97,13 +68,13 @@ return {
     {
         'mattn/emmet-vim',
         ft = { 'html', 'vue', 'xml', 'eruby', 'typescriptreact' },
-        setup = function()
+        init = function()
             vim.g.r_emmet_leader_key = ','
         end
     },
     {
         'ludovicchabant/vim-gutentags',
-        config = function()
+        init = function()
             if vim.g.gutentags_project_info == nil then
                 vim.g.gutentags_project_info = {}
             end
@@ -120,13 +91,41 @@ return {
     {
         "folke/todo-comments.nvim",
         dependencies = "nvim-lua/plenary.nvim",
-        config = true
+        opts = {}
     },
     {
         'scrooloose/nerdcommenter',
-        setup = function()
+        init = function()
             vim.g.NERDSpaceDelims = 1
             vim.g.NERDCompactSexyComs = 1
         end
+    },
+    {
+        dir = "/Users/ccarral/Code/project-notes.nvim",
+        name = "project-notes",
+        opts = {}
+    },
+    {
+        "GitMarkedDan/you-are-an-idiot.nvim",
+        -- Add your own custom configuration here:
+        -- opts = { }
+    },
+    {
+        'kyazdani42/nvim-tree.lua',
+        dependencies = { 'kyazdani42/nvim-web-devicons', opt = false },
+        opts = {
+            git = { enable = false },
+            actions = {
+                change_dir = {
+                    enable = false,
+                },
+            },
+            renderer = {
+                indent_markers = { enable = true },
+            },
+        },
+        init = function()
+            vim.api.nvim_set_keymap('', '<M-f>', ':NvimTreeToggle<CR>', { silent = true })
+        end,
     },
 }
