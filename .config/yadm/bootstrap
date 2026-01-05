@@ -1,5 +1,9 @@
 #!/bin/sh
 
-
-# Instalar oh-my-zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+if which brew; then
+    brew install rg
+    brew install bat 
+    brew install zsh 
+    brew install zsh-history-substring-search 
+    brew install zsh-autocomplete 
+fi
